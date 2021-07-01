@@ -4,11 +4,7 @@ from django.utils.translation import ugettext_lazy as _
 import django_on_heroku
 import dj_database_url
 import environ
-
-
-
 env = environ.Env()
-
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 environ.Env.read_env(os.path.join(BASE_DIR, ".env"))
@@ -49,7 +45,7 @@ MIDDLEWARE = [
     "corsheaders.middleware.CorsMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.security.SecurityMiddleware",
-    "django.middleware.locale.LocaleMiddleware",  # <-- add to load language prefix
+    "django.middleware.locale.LocaleMiddleware",  
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
