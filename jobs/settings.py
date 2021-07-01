@@ -5,12 +5,13 @@ import django_on_heroku
 import dj_database_url
 import environ
 
-environ.Env.read_env(os.path.join(BASE_DIR, ".env"))
+
 
 env = environ.Env()
 
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+environ.Env.read_env(os.path.join(BASE_DIR, ".env"))
 
 
 SECRET_KEY = "@pzqp#x^+#(olu#wy(6=mi9&a8n+g&x#af#apn07@j=5oin=xb"
