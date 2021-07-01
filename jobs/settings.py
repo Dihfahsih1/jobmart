@@ -3,6 +3,11 @@ from datetime import timedelta
 from django.utils.translation import ugettext_lazy as _
 import django_on_heroku
 import dj_database_url
+import environ
+
+environ.Env.read_env(os.path.join(BASE_DIR, ".env"))
+
+env = environ.Env()
 
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
