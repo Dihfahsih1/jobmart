@@ -4,8 +4,6 @@ from django.shortcuts import render, redirect, reverse
 from django.views.generic import CreateView, FormView, RedirectView
 from accounts.forms import *
 from accounts.models import User
-
-
 from django.utils.encoding import force_bytes, force_text, DjangoUnicodeDecodeError
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.contrib.sites.shortcuts import get_current_site
@@ -18,16 +16,13 @@ class RegisterEmployeeView(CreateView):
     form_class = EmployeeRegistrationForm
     template_name = "accounts/employee/register.html"
     success_url = "/"
-
     extra_context = {"title": "Register"}
 
     def dispatch(self, request, *args, **kwargs):
         if self.request.user.is_authenticated:
             return HttpResponseRedirect(self.get_success_url())
         return super().dispatch(self.request, *args, **kwargs)
-
     def post(self, request, *args, **kwargs):
-
         form = self.form_class(data=request.POST)
         if form.is_valid():
             user = form.save(commit=False)
@@ -44,7 +39,6 @@ class RegisterEmployerView(CreateView):
     form_class = EmployerRegistrationForm
     template_name = "accounts/employer/register.html"
     success_url = "/"
-
     extra_context = {"title": "Register"}
 
     def dispatch(self, request, *args, **kwargs):
@@ -53,9 +47,7 @@ class RegisterEmployerView(CreateView):
         return super().dispatch(self.request, *args, **kwargs)
 
     def post(self, request, *args, **kwargs):
-
         form = self.form_class(data=request.POST)
-
         if form.is_valid():
             user = form.save(commit=False)
             password = form.cleaned_data.get("password1")
@@ -70,11 +62,9 @@ class LoginView(FormView):
     """
     Provides the ability to login as a user with an email and password
     """
-
     success_url = "/"
     form_class = UserLoginForm
     template_name = "accounts/login.html"
-
     extra_context = {"title": "Login"}
 
     def dispatch(self, request, *args, **kwargs):
@@ -104,7 +94,6 @@ class LogoutView(RedirectView):
     """
     Provides users the ability to logout
     """
-
     url = "/login"
 
     def get(self, request, *args, **kwargs):
@@ -114,15 +103,11 @@ class LogoutView(RedirectView):
     
 #reset password functionalities
 def RequestResetEmail(request):
-    
     if request.method == 'POST':
         form = ResetEmailForm(request.POST)
         if form.is_valid():
             email = form.cleaned_data['email']
-        
-    
             user = User.objects.filter(email=email)
-        
             if user.exists():
                 uidb64 = urlsafe_base64_encode(force_bytes(user[0].pk))
                 domain = get_current_site(request).domain #gives us the domain
@@ -146,20 +131,16 @@ def RequestResetEmail(request):
     form = ResetEmailForm()
     return render(request, 'accounts/reset_email_form.html', {'form':form})
   
-def ResetPasswordView(request, uidb64, token):   
-    
+def ResetPasswordView(request, uidb64, token): 
     if request.method == 'POST':
         form = ResetPasswordForm(request.POST)
-        
         if form.is_valid():
             context = {
                 'uidb64':uidb64,
                 'token':token,
             }
-        
             password1 = form.cleaned_data['password']
             password2 = form.cleaned_data['password1']
-            
             if password1 == "":
                 messages.error(request, "Password is required")
             if password2 == "":

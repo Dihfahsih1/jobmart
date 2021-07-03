@@ -77,28 +77,18 @@ TEMPLATES = [
 WSGI_APPLICATION = "jobs.wsgi.application"
 
 DATABASES = {
-    'default':dj_database_url.config()
+    
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'jobmart',
+        'USER': 'martadmin',
+        'PASSWORD': 'jobmart2021',
+        'HOST': '127.0.0.1',
+        'PORT': '5432',
+    }
 }
-
-
-
-# DATABASES = {
-#     "default": {
-#         "ENGINE": "django.db.backends.sqlite3",
-#         "NAME": os.path.join(BASE_DIR, "db.sqlite3"),
-#     },
-#     # 'default': {
-#     #     'ENGINE': 'django.db.backends.postgresql_psycopg2',
-#     #     'NAME': 'ghuyhfun',
-#     #     'USER': 'ghuyhfun',
-#     #     'PASSWORD': 'ZMp3Pi11S9RJ7DVmovpo2aPo3rYiWlm3',
-#     #     'HOST': 'baasu.db.elephantsql.com',
-#     #     'PORT': '5432',
-#     # }
-# }
-
-# Password validation
-# https://docs.djangoproject.com/en/2.1/ref/settings/#auth-password-validators
+db_from_env = dj_database_url.config(conn_max_age=500)
+DATABASES['default'].update(db_from_env)
 
 AUTH_PASSWORD_VALIDATORS = [
     # {
@@ -118,8 +108,6 @@ AUTH_PASSWORD_VALIDATORS = [
     # },
 ]
 
-# Internationalization
-# https://docs.djangoproject.com/en/2.1/topics/i18n/
 
 LOCALE_PATHS = (os.path.join(BASE_DIR, "locale"),)
 
@@ -127,19 +115,14 @@ LANGUAGE_CODE = "en"
 
 LANGUAGES = (
     ("en", _("English")),
-    ("bn", _("Bengali")),
+    ("lug", _("Luganda")),
 )
 
 TIME_ZONE = "UTC"
-
 USE_I18N = True
-
 USE_L10N = True
-
 USE_TZ = True
 
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/2.1/howto/static-files/
 
 PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
 
@@ -148,29 +131,18 @@ STATIC_ROOT = os.path.join(PROJECT_ROOT, "staticfiles")
 # cors config
 
 
-
 CORS_ORIGIN_ALLOW_ALL = True
 ALLOWED_HOSTS = ["*"]
 
 CORS_ALLOW_METHODS = (
-    "DELETE",
-    "GET",
-    "OPTIONS",
-    "PATCH",
-    "POST",
-    "PUT",
+    "DELETE","GET","OPTIONS","PATCH","POST","PUT",
 )
 
 CORS_ALLOW_HEADERS = (
-    "accept",
-    "accept-encoding",
-    "authorization",
-    "content-type",
-    "dnt",
-    "origin",
-    "user-agent",
-    "x-csrftoken",
-    "x-requested-with",
+    "accept", "accept-encoding", "authorization",
+    "content-type","dnt",
+    "origin","user-agent",
+    "x-csrftoken","x-requested-with",
 )
 
 MEDIA_URL = '/media/'
