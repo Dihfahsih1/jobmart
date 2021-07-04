@@ -125,7 +125,7 @@
                                class="nav-link dropdown-toggle"><i class="fa fa-signing"></i>Register
                             </a>
                             <div aria-labelledby="pages" class="dropdown-menu">
-                                <a href="{% url 'accounts:employee-register' %}" class="dropdown-item">Employee</a>
+                                <a href="{% url 'accounts:employee-register' %}" class="dropdown-item">Job Seeker</a>
                                 <a href="{% url 'accounts:employer-register' %}" class="dropdown-item">Employers</a>
                             </div>
                         </li>
@@ -135,7 +135,6 @@
                             </a>
                         </li>
                     {% endif %}
-                    {% include "lang_selector.html" %}
                 </ul>
             </div>
         </div>
