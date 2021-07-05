@@ -21,3 +21,4 @@ urlpatterns = [
     path('request-reset-email/', RequestResetEmail, name="request-reset-email"),
     path('reset-password/<uidb64>/<token>/', ResetPasswordView, name='reset-password'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+

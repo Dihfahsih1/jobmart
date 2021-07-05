@@ -30,15 +30,18 @@
             <div class="row">
                 <div class="col-lg-8">
                     <h3>Category: {{ job.category }}</h3>
+                    <h4>Skills: {{ job.skills }}</h4>
                     <h5>Last date: {{ job.last_date|date }}</h5>
                     <h5 class="text-info">Salary: {% if job.salary > 0 %} {{ job.salary | intcomma}}/Monthly {% else %} Negotiable {% endif %} </h5>
                     Tags:
                     {% for tag in job.tags.all %}
                         <span style="color: #ffffff;" class="badge featured-badge badge-secondary">{{ tag.name }}</span>
                     {% endfor %}
+                    
                     <blockquote class="blockquote">
                         <p>{{ job.description }}</p>
                     </blockquote>
+
                     <div class="job-detail__apply-bottom">
                         {% if request.user.is_authenticated %}
                             {% is_already_applied job request.user as is_applied %}
@@ -63,9 +66,11 @@
                     </div>
                 </div>
                 <div class="col-lg-1"></div>
+
                 <div class="col-lg-3">
                     <h4>About {{ job.company_name }}</h4>
                     <p class="job-detail__company-description">{{ job.company_description }}</p>
+
                     <p class="job-detail__social social social--outline">
                         <a href="{{ job.website }}" data-toggle="tooltip" data-placement="top" title="Website"
                            class="link">
@@ -78,6 +83,7 @@
                             <i class="fa fa-facebook"></i>
                         </a>
                     </p>
+
                     <div class="job-detail__apply-top">
                         {% if is_applied %}
                             <input type="button" class="btn btn-outline-white-primary" value="Already applied"/>
