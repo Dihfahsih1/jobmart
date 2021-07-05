@@ -37,7 +37,9 @@
                     {% for tag in job.tags.all %}
                         <span style="color: #ffffff;" class="badge featured-badge badge-secondary">{{ tag.name }}</span>
                     {% endfor %}
-                    <p class="text-muted">Skills: {{ job.skills |linebreaks }}</p>
+                    <br>
+                    <h3>Required Skills</h3>
+                    <p class="text-muted"> {{ job.skills |linebreaks }}</p>
                     <blockquote class="blockquote">
                         <p>{{ job.description }}</p>
                     </blockquote>
