@@ -28,6 +28,7 @@ class Job(models.Model):
     filled = models.BooleanField(default=False)
     salary = models.IntegerField(default=0, blank=True)
     tags = models.ManyToManyField(Tag)
+    skills = models.TextField(null=True,blank=True)
 
     objects = JobManager()
 
