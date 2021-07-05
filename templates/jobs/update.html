@@ -60,7 +60,7 @@
                         </div>
                         <div class="row">
                             <div class="col-lg-12 form-group">
-                                <label for="text">Job Skills</label>
+                                <label for="text">Required Skills</label>
                                 <textarea id="text" name="skills" rows="5" class="form-control">{{ form.skills.value|default_if_none:"" }}</textarea>
                             </div>
                         </div>
@@ -76,7 +76,7 @@
                                 <input id="salary" name="salary" type="number" min="1000" class="form-control" value="{{ form.salary.value|default_if_none:"" }}">
                             </div>
                             <div class="col-lg-6 form-group">
-                                <label for="tags">Required skills</label>
+                                <label for="tags">Job Tags</label>
                                 <select class="js-select2 form-control" name="tags" style="border-radius: 0" multiple="multiple" data-placeholder="Select Tags">
                                     {% for tag in tags %}
                                         {% tag_exists tag.id form.tags.value as tag_already_exists %}
