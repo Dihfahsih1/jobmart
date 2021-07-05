@@ -83,6 +83,8 @@ class LoginView(FormView):
 
     def form_valid(self, form):
         auth.login(self.request, form.get_user())
+        if self.request.user.role=="employer":
+            return redirect('jobs:employer-dashboard')
         return HttpResponseRedirect(self.get_success_url())
 
     def form_invalid(self, form):
