@@ -30,14 +30,14 @@
             <div class="row">
                 <div class="col-lg-8">
                     <h3>Category: {{ job.category }}</h3>
-                    <h4>Skills: {{ job.skills }}</h4>
+                    
                     <h5>Last date: {{ job.last_date|date }}</h5>
                     <h5 class="text-info">Salary: {% if job.salary > 0 %} {{ job.salary | intcomma}}/Monthly {% else %} Negotiable {% endif %} </h5>
                     Tags:
                     {% for tag in job.tags.all %}
                         <span style="color: #ffffff;" class="badge featured-badge badge-secondary">{{ tag.name }}</span>
                     {% endfor %}
-                    
+                    <p class="text-muted">Skills: {{ job.skills |linebreaks }}</p>
                     <blockquote class="blockquote">
                         <p>{{ job.description }}</p>
                     </blockquote>
