@@ -59,39 +59,28 @@
                     <li class="nav-item">
                         <a href="/{{ LANGUAGE_CODE }}/about-us/" class="nav-link">About Us</a>
                     </li>
-                    {% if request.user.is_authenticated and request.user.role == 'employer' %}
-                        <li class="nav-item dropdown">
-                            <a id="clientZone" href="#" data-toggle="dropdown"
-                               aria-haspopup="true" aria-expanded="false"
-                               class="nav-link dropdown-toggle has-img mb-3 mb-lg-0 mt-3 mt-lg-0">
-                                <div class="client-menu-image">
-                                    <div class="inner">
-                                        <img src="{% static 'img/company-1.png' %}"
-                                             alt="company image"
-                                             class="img-fluid">
-                                    </div>
-                                </div>
-                                {% if request.user.role == 'employee' %}
-                                    {{ request.user.first_name }} {{ request.user.last_name }}
-                                {% else %}
-                                    {{ request.user.first_name }}
-                                {% endif %}
-                            </a>
+                    {% if request.user.is_authenticated and request.user.role == 'employer' or request.user.role == 'employee' %}
+                            {% if request.user.role == 'employer' %}
                             <div aria-labelledby="clientZone" class="dropdown-menu">
                                 <a href="{% url 'jobs:employer-dashboard' %}" class="dropdown-item">Dashboard</a>
-                                <a href="{% url 'jobs:employer-all-applicants' %}" class="dropdown-item">Applicants </a>
+                               <a href="{% url 'jobs:employer-all-applicants' %}" class="dropdown-item">Applicants </a>
                                 <a href="{% url 'jobs:employer-jobs-create' %}" class="dropdown-item">Post a new
                                     job </a>
                                 <a href="{% url 'accounts:logout' %}" class="dropdown-item">Logout</a>
+
+                                
                             </div>
+                            {% else %}
+                            
                         </li>
-                    {% elif request.user.is_authenticated and request.user.role == 'employee' %}
+                    
                         <li class="nav-item">
                             <a href="{% url 'jobs:employee-favorites' %}" class="nav-link">Favorites</a>
                         </li>
                         <li class="nav-item">
                             <a href="{% url 'jobs:employee-my-applications' %}" class="nav-link">My Applications</a>
                         </li>
+                        {% endif %}
 
                         <li class="nav-item dropdown">
                             <a id="clientZone" href="#" data-toggle="dropdown"
@@ -111,7 +100,7 @@
                                 {% endif %}
                             </a>
                             <div aria-labelledby="clientZone" class="dropdown-menu">
-                                <a href="{% url 'accounts:employer-profile-update' %}" class="dropdown-item">Edit Profile</a>
+                                <a href="{% url 'accounts:employee-profile-update' %}" class="dropdown-item">Edit Profile</a>
                                 <a href="{% url 'accounts:logout' %}" class="dropdown-item">Logout</a>
                             </div>
                         </li>

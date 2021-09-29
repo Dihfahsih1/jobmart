@@ -11,8 +11,12 @@ class User(AbstractUser):
     role = models.CharField(max_length=12, error_messages={"required": "Role must be provided"})
     gender = models.CharField(max_length=10, blank=True, null=True, default="")
     resume = models.FileField(upload_to='media/resume/', null=True, blank=True)
-    registration_no = models.CharField(max_length=200)
-    telephone = models.CharField(max_length=200)
+    registration_no = models.CharField(max_length=200, null=True, blank=True)
+    telephone = models.CharField(max_length=200, null=True, blank=True)
+    address = models.CharField(max_length=200, null=True, blank=True)
+    birth_date = models.DateTimeField(blank=True, null=True)
+    skills = models.TextField(blank=True, null=True)
+    working_experience = models.IntegerField(default=0)
     email = models.EmailField(
         unique=True,
         blank=False,

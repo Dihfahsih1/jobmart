@@ -54,10 +54,14 @@
                     <div class="btn btn-outline-white-primary btn-sm" style="border-color:black">
                         <a href="{% url "social:begin" "github" %}" style="color:black"><i class="fa fa-github-square"></i>Login with Github </a>
                     </div>
-                   <br> <p><a href="{% url 'accounts:request-reset-email' %}">Forgot Password?</a></p>
+                   <br> 
                    {% endcomment %}
                 </div>
             </form>
+            <p><a href="{% url 'accounts:request-reset-email' %}">Forgot Password?</a></p>
+
+            <p>Have no account? <a href="{% url 'accounts:employee-register' %}"> Please Register</a></p>
+
         </div>
     </div>
 {% endblock %}
