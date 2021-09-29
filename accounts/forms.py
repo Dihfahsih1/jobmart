@@ -209,7 +209,12 @@ class EmployeeProfileUpdateForm(forms.ModelForm):
 
     class Meta:
         model = User
-        fields = ["first_name", "last_name", "gender"]
+        widgets = {'birth_date':forms.DateInput()}
+        fields = ["first_name", "last_name", "resume", "email","telephone","skills","working_experience","birth_date","address"]
+        
+       
+        
+        
 
 
 class ResetEmailForm(forms.Form):
