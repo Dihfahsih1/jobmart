@@ -88,6 +88,7 @@ class EmployerRegistrationForm(UserCreationForm):
         super(EmployerRegistrationForm, self).__init__(*args, **kwargs)
         self.fields["first_name"].label = "Company Name"
         self.fields["last_name"].label = "Company Address"
+        self.fields["registration_no"].label = "Company Registration Number"
         self.fields["password1"].label = "Password"
         self.fields["password2"].label = "Confirm Password"
 
@@ -101,6 +102,19 @@ class EmployerRegistrationForm(UserCreationForm):
                 "placeholder": "Enter Company Address",
             }
         )
+        
+        self.fields["registration_no"].widget.attrs.update(
+            {
+                "placeholder": "Enter Company Reg No.",
+            }
+        )
+        
+        self.fields["telephone"].widget.attrs.update(
+            {
+                "placeholder": "Enter Company Phone No.",
+            }
+        )
+        
         self.fields["email"].widget.attrs.update(
             {
                 "placeholder": "Enter Email",
@@ -119,7 +133,13 @@ class EmployerRegistrationForm(UserCreationForm):
 
     class Meta:
         model = User
-        fields = ["first_name", "last_name", "email", "password1", "password2"]
+        fields = ["first_name", 
+                  "last_name","registration_no",
+                  "telephone",
+                  "email",
+                  "password1", 
+                  "password2",
+            ]
         error_messages = {
             "first_name": {
                 "required": "First name is required",
