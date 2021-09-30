@@ -12,7 +12,6 @@ class EmployeeRegistrationForm(UserCreationForm):
 
     def __init__(self, *args, **kwargs):
         super(EmployeeRegistrationForm, self).__init__(*args, **kwargs)
-        self.fields["gender"].required = True
         self.fields["first_name"].label = "First Name"
         self.fields["last_name"].label = "Last Name"
         self.fields["password1"].label = "Password"
@@ -55,7 +54,6 @@ class EmployeeRegistrationForm(UserCreationForm):
             "resume",
             "password1",
             "password2",
-            "gender",
         ]
         error_messages = {
             "first_name": {
@@ -86,18 +84,19 @@ class EmployeeRegistrationForm(UserCreationForm):
 class EmployerRegistrationForm(UserCreationForm):
     def __init__(self, *args, **kwargs):
         super(EmployerRegistrationForm, self).__init__(*args, **kwargs)
-        self.fields["first_name"].label = "Company Name"
-        self.fields["last_name"].label = "Company Address"
+        self.fields["company_name"].label = "Company Name"
+        self.fields["avatar"].label = "Company Logo"
+        self.fields["address"].label = "Company Address"
         self.fields["registration_no"].label = "Company Registration Number"
         self.fields["password1"].label = "Password"
         self.fields["password2"].label = "Confirm Password"
 
-        self.fields["first_name"].widget.attrs.update(
+        self.fields["company_name"].widget.attrs.update(
             {
                 "placeholder": "Enter Company Name",
             }
         )
-        self.fields["last_name"].widget.attrs.update(
+        self.fields["address"].widget.attrs.update(
             {
                 "placeholder": "Enter Company Address",
             }
@@ -205,17 +204,17 @@ class EmployeeProfileUpdateForm(forms.ModelForm):
             {
                 "placeholder": "Enter Last Name",
             }
+        )    
+        self.fields["avatar"].widget.attrs.update(
+            {
+                "placeholder": "Profile Picture",
+            }
         )
 
     class Meta:
         model = User
         widgets = {'birth_date':forms.DateInput()}
-        fields = ["first_name", "last_name", "resume", "email","telephone","skills","working_experience","birth_date","address"]
-        
-       
-        
-        
-
+        fields = ["avatar","first_name", "last_name", "resume", "email","telephone","skills","working_experience","birth_date","address"]
 
 class ResetEmailForm(forms.Form):
     email = forms.EmailField()

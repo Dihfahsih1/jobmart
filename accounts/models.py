@@ -9,6 +9,9 @@ GENDER_CHOICES = (("male", "Male"), ("female", "Female"))
 class User(AbstractUser):
     username = None
     role = models.CharField(max_length=12, error_messages={"required": "Role must be provided"})
+    
+    company_name = models.CharField(max_length=200, null=True, blank=True)
+    avatar = models.FileField(upload_to='media/resume/', null=True, blank=True, default="media/default/avatar.png")
     gender = models.CharField(max_length=10, blank=True, null=True, default="")
     resume = models.FileField(upload_to='media/resume/', null=True, blank=True)
     registration_no = models.CharField(max_length=200, null=True, blank=True)
