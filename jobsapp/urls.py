@@ -45,6 +45,8 @@ urlpatterns = [
                     name="employee-my-applications",
                 ),
                 path("favorites", FavoriteListView.as_view(), name="employee-favorites"),
+                
+                path("profile/view/", ProfileDetailView.as_view(), name="profile-detail")
             ]
         ),
     ),
