@@ -8,6 +8,7 @@ from accounts.forms import EmployeeProfileUpdateForm
 from accounts.models import User
 from jobsapp.decorators import user_is_employee
 from jobsapp.models import Favorite, Applicant
+from django.contrib.messages.views import SuccessMessageMixin
 
 
 @method_decorator(login_required(login_url=reverse_lazy("accounts:login")), name="dispatch")
@@ -31,12 +32,13 @@ class EmployeeMyJobsListView(ListView):
         return self.queryset
 
 
-class EditProfileView(UpdateView):
+class EditProfileView(SuccessMessageMixin,UpdateView):
     model = User
     form_class = EmployeeProfileUpdateForm
     context_object_name = "employee"
     template_name = "jobs/employee/edit-profile.html"
-    success_url = reverse_lazy("accounts:employer-profile-update")
+    success_message = "Your profile was updated successfully!"
+    success_url = reverse_lazy("accounts:employee-profile-update")
 
     @method_decorator(login_required(login_url=reverse_lazy("accounts:login")))
     @method_decorator(user_is_employee)
