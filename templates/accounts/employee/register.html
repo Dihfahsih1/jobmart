@@ -61,6 +61,22 @@
                     {% endif %}
                 {% endfor %}
 
+                {% if SkillsFormset %}
+                    <h3>Your Skills</h3>
+
+                    {{ SkillsFormset.management_form }}
+                    {% for form in SkillsFormset %}
+                      <div class="skills-form">
+                        {{ form.skills }}
+                      </div>
+                    {% endfor %}
+
+                    <div>
+                        {{ SkillsFormset.empty_form }} </div>
+                        <button class="btn btn-outline-white-success"  id="add-more" type="button">Add More Skills</button>
+                {%  endif %}
+                <br>
+                <hr>
                 <div class="text-center">
                     <button type="submit" class="btn btn-outline-white-primary"><i class="fa fa-user-md"></i> Register
                     </button>

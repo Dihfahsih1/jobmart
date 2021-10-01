@@ -6,6 +6,10 @@ from accounts.models import User
 
 GENDER_CHOICES = (("male", "Male"), ("female", "Female"))
 
+class SkillsForm(forms.ModelForm):
+    class Meta:
+        model = User
+        fields = [ "skill",]
 
 class EmployeeRegistrationForm(UserCreationForm):
     # gender = forms.MultipleChoiceField(widget=forms.CheckboxSelectMultiple, choices=GENDER_CHOICES)
@@ -50,8 +54,10 @@ class EmployeeRegistrationForm(UserCreationForm):
         fields = [
             "first_name",
             "last_name",
-            "email",
+            'avatar',
+            'gender',
             "resume",
+            "email",
             "password1",
             "password2",
         ]
@@ -129,6 +135,8 @@ class EmployerRegistrationForm(UserCreationForm):
                 "placeholder": "Confirm Password",
             }
         )
+        
+        
 
     class Meta:
         model = User
@@ -210,11 +218,17 @@ class EmployeeProfileUpdateForm(forms.ModelForm):
                 "placeholder": "Profile Picture",
             }
         )
+        
+        self.fields["telephone"].widget.attrs.update(
+            {
+                "placeholder": "Telephone Number",
+            }
+        )
 
     class Meta:
         model = User
         widgets = {'birth_date':forms.DateInput()}
-        fields = ["avatar","first_name", "last_name", "resume", "email","telephone","skills","working_experience","birth_date","address"]
+        fields = ["avatar","first_name", "last_name", "resume", "email","telephone","skill","working_experience","birth_date","address"]
 
 class ResetEmailForm(forms.Form):
     email = forms.EmailField()

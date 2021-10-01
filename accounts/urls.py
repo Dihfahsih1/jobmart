@@ -9,7 +9,7 @@ from .views import *
 app_name = "accounts"
 
 urlpatterns = [
-    path("employee/register/", RegisterEmployeeView.as_view(), name="employee-register"),
+    path("employee/register/", RegisterEmployeeView, name="employee-register"),
     
     path("employer/register/", RegisterEmployerView.as_view(), name="employer-register"),
     

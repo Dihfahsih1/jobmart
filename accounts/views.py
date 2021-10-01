@@ -1,4 +1,5 @@
 from django.contrib import messages, auth
+from django.forms.models import modelformset_factory
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect, reverse
 from django.views.generic import CreateView, FormView, RedirectView
@@ -9,30 +10,31 @@ from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.contrib.sites.shortcuts import get_current_site
 from django.contrib.auth.tokens import PasswordResetTokenGenerator
 from django.core.mail import send_mail
+from django.forms import formset_factory
 
-
-class RegisterEmployeeView(CreateView):
-    model = User
-    form_class = EmployeeRegistrationForm
-    template_name = "accounts/employee/register.html"
-    success_url = "/"
-    extra_context = {"title": "Register"}
-
-    def dispatch(self, request, *args, **kwargs):
-        if self.request.user.is_authenticated:
-            return HttpResponseRedirect(self.get_success_url())
-        return super().dispatch(self.request, *args, **kwargs)
-    
-    def post(self, request, *args, **kwargs):
-        form = self.form_class(request.POST, request.FILES)
-        if form.is_valid():
+def RegisterEmployeeView(request):
+    form = EmployeeRegistrationForm
+    SkillsFormset = modelformset_factory(User, form=SkillsForm, extra=3)
+    context={"form":form, "SkillsFormset":SkillsFormset}
+    if request.method == 'POST':
+        formset = SkillsFormset(request.POST or None)
+        form = EmployeeRegistrationForm(request.POST, request.FILES or None)
+        
+        if all([form.is_valid(), formset.is_valid()]):
             user = form.save(commit=False)
             password = form.cleaned_data.get("password1")
             user.set_password(password)
             user.save()
+            
+            for form in formset:
+                skill = form.save(commit=False)
+                skill.save()
+            context['message'] = 'Data saved' 
             return redirect("accounts:login")
-        else:
-            return render(request, "accounts/employee/register.html", {"form": form})
+        return render(request,"accounts/employee/register.html", context)
+            
+    return render(request,"accounts/employee/register.html", context)
+            
 
 
 class RegisterEmployerView(CreateView):
