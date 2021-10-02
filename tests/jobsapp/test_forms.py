@@ -7,7 +7,7 @@ from accounts.models import User
 from jobsapp.forms import CreateJobForm
 from jobsapp.models import Job
 
-
+#testing class
 class TestCreateJobForm(TestCase):
     def setUp(self) -> None:
         self.valid_job = {
