@@ -13,6 +13,8 @@ urlpatterns = [
     
     path("employer/register/", RegisterEmployerView.as_view(), name="employer-register"),
     
+    path("register/", RegisterJobSeeker.as_view(), name="employee-register"),
+    
     path(
         "employee/profile/update/",
         EditProfileView.as_view(),

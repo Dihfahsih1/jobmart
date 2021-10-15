@@ -1,16 +1,52 @@
-from django.contrib import messages, auth
-from django.forms.models import modelformset_factory
-from django.http import HttpResponseRedirect
-from django.shortcuts import render, redirect, reverse
-from django.views.generic import CreateView, FormView, RedirectView
-from accounts.forms import *
-from accounts.models import User
-from django.utils.encoding import force_bytes, force_text, DjangoUnicodeDecodeError
-from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
-from django.contrib.sites.shortcuts import get_current_site
+from django.contrib import auth, messages
 from django.contrib.auth.tokens import PasswordResetTokenGenerator
+from django.contrib.sites.shortcuts import get_current_site
 from django.core.mail import send_mail
 from django.forms import formset_factory
+from django.forms.models import modelformset_factory
+from django.http import HttpResponseRedirect
+from django.shortcuts import redirect, render, reverse
+from django.utils.encoding import (DjangoUnicodeDecodeError, force_bytes,
+                                   force_text)
+from django.utils.http import urlsafe_base64_decode, urlsafe_base64_encode
+from django.views.generic import CreateView, FormView, RedirectView
+
+from accounts.forms import *
+from accounts.models import User
+from django.shortcuts import reverse_lazy
+from .forms import JobseekskilsFormset
+from django.db import transaction
+
+
+class RegisterJobSeeker(CreateView):
+    model = User
+    fields = ["avatar","first_name", "last_name", "resume", "email","telephone","skill","working_experience","birth_date","address"]
+    success_url = reverse_lazy('accounts:login')
+
+    def get_context_data(self, **kwargs):
+        data = super(EmployeeRegistrationForm, self).get_context_data(**kwargs)
+        if self.request.POST:
+            #data['familymembers'] = FamilyMemberFormSet(self.request.POST)
+            data['addskills'] = JobseekskilsFormset(self.request.POST)
+        else:
+            data['addskills'] = JobseekskilsFormset()
+        return data
+
+    def form_valid(self, form):
+        context = self.get_context_data()
+        addskills = context['addskills']
+        
+        with transaction.atomic():
+            user = form.save(commit=False)
+            password = form.cleaned_data.get("password1")
+            user.set_password(password)
+            user.save()
+            self.object = form.save()
+
+            if addskills.is_valid():
+                addskills.instance = self.object
+                addskills.save()
+        return super(RegisterJobSeeker, self).form_valid(form)
 
 def RegisterEmployeeView(request):
     form = EmployeeRegistrationForm
