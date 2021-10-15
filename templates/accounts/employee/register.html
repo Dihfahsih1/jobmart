@@ -5,7 +5,7 @@
 {% load static %}
 
 {% block content %}
-{% comment %}
+
 <div class="col-lg-6 offset-3">
     <div class="box">
         <h3 class="heading">New account</h3>
@@ -58,20 +58,38 @@
                 {% endif %}
             {% endfor %}
 
-            {% if SkillsFormset %}
                 <h3>Your Skills</h3>
 
-                {{ SkillsFormset.management_form }}
-                {% for form in SkillsFormset %}
-                  <div class="skills-form">
-                     {{ form.skills }}
-                  </div>
-                {% endfor %}
-
-                <div>
-                    {{ SkillsFormset.empty_form }} </div>
-                    <button class="btn btn-outline-white-success"  id="add-more" type="button">Add More Skills</button>
-            {%  endif %}
+                <table class="table">
+                    {{ addskills.management_form }}
+        
+                    {% for form in addskills.forms %}
+                        {% if forloop.first %}
+                            <thead>
+                            <tr>
+                                {% for field in form.visible_fields %}
+                                    <th>{{ field.label|capfirst }}</th>
+                                {% endfor %}
+                            </tr>
+                            </thead>
+                        {% endif %}
+                        <tr class="{% cycle row1 row2 %} formset_row">
+                            {% for field in form.visible_fields %}
+                                <td>
+                                    {# Include the hidden fields in the form #}
+                                    {% if forloop.first %}
+                                        {% for hidden in form.hidden_fields %}
+                                            {{ hidden }}
+                                        {% endfor %}
+                                    {% endif %}
+                                    {{ field.errors.as_ul }}
+                                    {{ field }}
+                                </td>
+                            {% endfor %}
+                        </tr>
+                    {% endfor %}
+                </table>
+            
             <br>
             <hr>
             <div class="text-center">
@@ -82,54 +100,17 @@
     </div>
     <p class="lead">Already have an account? <a href="{% url 'accounts:login' %}"> Please Login</a></p>
 </div>
-{% endcomment %}
 
-<div class="col-md-4">
-    <form action="" method="post">{% csrf_token %}
-        {{ form.as_p }}
 
-        <table class="table">
-            {{ addskills.management_form }}
-
-            {% for form in addskills.forms %}
-                {% if forloop.first %}
-                    <thead>
-                    <tr>
-                        {% for field in form.visible_fields %}
-                            <th>{{ field.label|capfirst }}</th>
-                        {% endfor %}
-                    </tr>
-                    </thead>
-                {% endif %}
-                <tr class="{% cycle row1 row2 %} formset_row">
-                    {% for field in form.visible_fields %}
-                        <td>
-                            {# Include the hidden fields in the form #}
-                            {% if forloop.first %}
-                                {% for hidden in form.hidden_fields %}
-                                    {{ hidden }}
-                                {% endfor %}
-                            {% endif %}
-                            {{ field.errors.as_ul }}
-                            {{ field }}
-                        </td>
-                    {% endfor %}
-                </tr>
-            {% endfor %}
-        </table>
-        <input type="submit" value="Save"/> <a href="#">back to the list</a>
-    </form>
-</div>
-   
 
 
     <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
     <script src="{% static 'formset/jquery.formset.js' %}"></script>
     <script type="text/javascript">
         $('.formset_row').formset({
-            addText: 'add skill',
+            addText: 'Add More Skills',
             deleteText: 'remove',
-            prefix: 'skill_set'
+            prefix: 'Skillset_set'
         });
     </script>
 {% endblock %}

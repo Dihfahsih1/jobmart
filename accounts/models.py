@@ -35,10 +35,12 @@ class User(AbstractUser):
 
     objects = UserManager()
     
+     
+    
 #skills model    
 class Skillset(models.Model):
     user = models.ForeignKey(User, on_delete=models.PROTECT, blank=True, null=True)
     skill = models.CharField(max_length=200, null=True, blank=True)
 
     def __str__(self):
-        return self.skill
+        return str(self.user)

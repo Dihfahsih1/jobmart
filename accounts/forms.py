@@ -92,7 +92,7 @@ class SkillsetForm(ModelForm):
         model = Skillset
         fields = ['user','skill']
         exclude = ()
-JobseekskilsFormset = inlineformset_factory(User, Skillset, form=SkillsetForm, extra=1)
+JobseekskilsFormset = inlineformset_factory(User, Skillset, form=SkillsetForm, extra=2)
 
 class EmployerRegistrationForm(UserCreationForm):
     def __init__(self, *args, **kwargs):
