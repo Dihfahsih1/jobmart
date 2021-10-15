@@ -20,9 +20,10 @@ from django.db import transaction
 
 class RegisterJobSeeker(CreateView):
     model = User
-    fields = ["avatar","first_name", "last_name", "resume", "email","telephone","working_experience","birth_date","address"]
+    success_message = 'Your Account has been created sucessfully!'
     success_url = reverse_lazy('accounts:login')
     template_name = "accounts/employee/register.html"
+    form_class=EmployeeRegistrationForm
     
 
     def get_context_data(self, **kwargs):
