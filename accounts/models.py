@@ -35,3 +35,11 @@ class User(AbstractUser):
         return self.email
 
     objects = UserManager()
+    
+#skills model    
+class Skillset(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True)
+    skill = models.CharField(max_length=200, null=True, blank=True)
+
+    def __str__(self):
+        return self.skill

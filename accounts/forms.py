@@ -1,9 +1,10 @@
 from django import forms
 from django.contrib.auth import authenticate
 from django.contrib.auth.forms import UserCreationForm
-from django.forms.models import inlineformset_factory
+from django.forms import ModelForm, models,  inlineformset_factory
 
-from accounts.models import User
+
+from accounts.models import User,Skillset
 
 GENDER_CHOICES = (("male", "Male"), ("female", "Female"))
 
@@ -52,6 +53,8 @@ class EmployeeRegistrationForm(UserCreationForm):
 
     class Meta:
         model = User
+        
+        exclude = ()
         fields = [
             "first_name",
             "last_name",
@@ -86,7 +89,13 @@ class EmployeeRegistrationForm(UserCreationForm):
         if commit:
             user.save()
         return user
-
+    
+class SkillsetForm(ModelForm):
+    class Meta:
+        model = Skillset
+        fields = ['user','skill']
+        exclude = ()
+JobseekskilsFormset = inlineformset_factory(User, Skillset, form=SkillsetForm, extra=1)
 
 class EmployerRegistrationForm(UserCreationForm):
     def __init__(self, *args, **kwargs):
@@ -228,9 +237,8 @@ class EmployeeProfileUpdateForm(forms.ModelForm):
 
     class Meta:
         model = User #user
-        exclude = ()
         fields = ["avatar","first_name", "last_name", "resume", "email","telephone","skill","working_experience","birth_date","address"]
-JobseekskilsFormset = inlineformset_factory(User, form=EmployeeProfileUpdateForm, extra=1)
+
 class ResetEmailForm(forms.Form):
     email = forms.EmailField()
     

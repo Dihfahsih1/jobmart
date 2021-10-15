@@ -13,7 +13,7 @@ from django.views.generic import CreateView, FormView, RedirectView
 
 from accounts.forms import *
 from accounts.models import User
-from django.shortcuts import reverse_lazy
+from django.urls import reverse_lazy
 from .forms import JobseekskilsFormset
 from django.db import transaction
 
@@ -22,6 +22,8 @@ class RegisterJobSeeker(CreateView):
     model = User
     fields = ["avatar","first_name", "last_name", "resume", "email","telephone","skill","working_experience","birth_date","address"]
     success_url = reverse_lazy('accounts:login')
+    template_name = "accounts/employee/register.html"
+    
 
     def get_context_data(self, **kwargs):
         data = super(EmployeeRegistrationForm, self).get_context_data(**kwargs)
