@@ -7,7 +7,7 @@ from django.views.generic.detail import DetailView
 from django.shortcuts import get_object_or_404
 
 from accounts.forms import EmployeeProfileUpdateForm
-from accounts.models import User
+from accounts.models import Skillset, User
 from jobsapp.decorators import user_is_employee
 from jobsapp.models import Favorite, Applicant
 from django.contrib.messages.views import SuccessMessageMixin
@@ -88,6 +88,7 @@ class ProfileDetailView(DetailView):
     def get_context_data(self, **kwargs):
         context = super(ProfileDetailView, self).get_context_data(**kwargs)
         context['favorites'] = Applicant.objects.filter(user_id = self.request.user.id ).order_by("-created_at")
+        context['skills'] = Skillset.objects.filter(user_id= self.request.user.id)
         
         if (
             "status" in self.request.GET
