@@ -18,7 +18,6 @@ class User(AbstractUser):
     telephone = models.CharField(max_length=200, null=True, blank=True)
     address = models.CharField(max_length=200, null=True, blank=True)
     birth_date = models.DateTimeField(blank=True, null=True)
-    skill = models.CharField(max_length=200,blank=True, null=True)
     working_experience = models.IntegerField(default=0)
     email = models.EmailField(
         unique=True,
@@ -38,7 +37,7 @@ class User(AbstractUser):
     
 #skills model    
 class Skillset(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True)
+    user = models.ForeignKey(User, on_delete=models.PROTECT, blank=True, null=True)
     skill = models.CharField(max_length=200, null=True, blank=True)
 
     def __str__(self):

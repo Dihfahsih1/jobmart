@@ -8,10 +8,7 @@ from accounts.models import User,Skillset
 
 GENDER_CHOICES = (("male", "Male"), ("female", "Female"))
 
-class SkillsForm(forms.ModelForm):
-    class Meta:
-        model = User
-        fields = [ "skill",]
+
 
 class EmployeeRegistrationForm(UserCreationForm):
     # gender = forms.MultipleChoiceField(widget=forms.CheckboxSelectMultiple, choices=GENDER_CHOICES)
@@ -237,7 +234,7 @@ class EmployeeProfileUpdateForm(forms.ModelForm):
 
     class Meta:
         model = User #user
-        fields = ["avatar","first_name", "last_name", "resume", "email","telephone","skill","working_experience","birth_date","address"]
+        fields = ["avatar","first_name", "last_name", "resume", "email","telephone","working_experience","birth_date","address"]
 
 class ResetEmailForm(forms.Form):
     email = forms.EmailField()

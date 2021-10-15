@@ -20,13 +20,13 @@ from django.db import transaction
 
 class RegisterJobSeeker(CreateView):
     model = User
-    fields = ["avatar","first_name", "last_name", "resume", "email","telephone","skill","working_experience","birth_date","address"]
+    fields = ["avatar","first_name", "last_name", "resume", "email","telephone","working_experience","birth_date","address"]
     success_url = reverse_lazy('accounts:login')
     template_name = "accounts/employee/register.html"
     
 
     def get_context_data(self, **kwargs):
-        data = super(EmployeeRegistrationForm, self).get_context_data(**kwargs)
+        data = super(RegisterJobSeeker, self).get_context_data(**kwargs)
         if self.request.POST:
             #data['familymembers'] = FamilyMemberFormSet(self.request.POST)
             data['addskills'] = JobseekskilsFormset(self.request.POST)
@@ -50,28 +50,28 @@ class RegisterJobSeeker(CreateView):
                 addskills.save()
         return super(RegisterJobSeeker, self).form_valid(form)
 
-def RegisterEmployeeView(request):
-    form = EmployeeRegistrationForm
-    SkillsFormset = modelformset_factory(User, form=SkillsForm, extra=3)
-    context={"form":form, "SkillsFormset":SkillsFormset}
-    if request.method == 'POST':
-        formset = SkillsFormset(request.POST or None)
-        form = EmployeeRegistrationForm(request.POST, request.FILES or None)
+# def RegisterEmployeeView(request):
+#     form = EmployeeRegistrationForm
+#     SkillsFormset = modelformset_factory(User, form=SkillsForm, extra=3)
+#     context={"form":form, "SkillsFormset":SkillsFormset}
+#     if request.method == 'POST':
+#         formset = SkillsFormset(request.POST or None)
+#         form = EmployeeRegistrationForm(request.POST, request.FILES or None)
         
-        if all([form.is_valid(), formset.is_valid()]):
-            user = form.save(commit=False)
-            password = form.cleaned_data.get("password1")
-            user.set_password(password)
-            user.save()
+#         if all([form.is_valid(), formset.is_valid()]):
+#             user = form.save(commit=False)
+#             password = form.cleaned_data.get("password1")
+#             user.set_password(password)
+#             user.save()
             
-            for form in formset:
-                skill = form.save(commit=False)
-                skill.save()
-            context['message'] = 'Data saved' 
-            return redirect("accounts:login")
-        return render(request,"accounts/employee/register.html", context)
+#             for form in formset:
+#                 skill = form.save(commit=False)
+#                 skill.save()
+#             context['message'] = 'Data saved' 
+#             return redirect("accounts:login")
+#         return render(request,"accounts/employee/register.html", context)
             
-    return render(request,"accounts/employee/register.html", context)
+#     return render(request,"accounts/employee/register.html", context)
             
 
 
