@@ -87,9 +87,9 @@ class ProfileDetailView(DetailView):
     
     def get_context_data(self, **kwargs):
         context = super(ProfileDetailView, self).get_context_data(**kwargs)
-        context['favorites'] = Applicant.objects.filter(user_id = self.request.user.id ).order_by("-created_at")
+        context['applied'] = Applicant.objects.filter(user_id = self.request.user.id ).order_by("-created_at")
         context['skills'] = Skillset.objects.filter(user_id= self.request.user.id)
-        
+    
         if (
             "status" in self.request.GET
             and len(self.request.GET.get("status")) > 0
