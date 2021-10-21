@@ -10,6 +10,9 @@ from jobsapp.decorators import user_is_employer
 from jobsapp.forms import CreateJobForm
 from jobsapp.models import Job, Applicant
 from tags.models import Tag
+from accounts.models import User
+from jobsapp.decorators import user_is_employer
+from django.shortcuts import get_object_or_404
 
 
 
@@ -78,8 +81,29 @@ class JobCreateView(CreateView):
         else:
             return self.form_invalid(form)
 
-def about_company(request):
-    data = User.objects.filter()
+@method_decorator(login_required(login_url=reverse_lazy("accounts:login")), name="dispatch")
+@method_decorator(user_is_employer, name="dispatch")
+class EmployerProfileDetailView(DetailView):
+    model = User
+    template_name = 'jobs/employer/employerprofile.html'
+    context_object_name = "profile"
+    
+    
+    def get_object(self):
+        return get_object_or_404(User, email=self.request.user)
+    
+    def get_context_data(self, **kwargs):
+        context = super(EmployerProfileDetailView, self).get_context_data(**kwargs)
+       
+        # if (
+        #     "status" in self.request.GET
+        #     and len(self.request.GET.get("status")) > 0
+        #     and int(self.request.GET.get("status")) > 0
+        # ):
+        #     self.queryset = self.queryset.filter(status=int(self.request.GET.get("status")))
+        return context
+    
+    
 @method_decorator(login_required(login_url=reverse_lazy("accounts:login")), name="dispatch")
 @method_decorator(user_is_employer, name="dispatch")
 class JobUpdateView(UpdateView):
@@ -208,3 +232,4 @@ class SendResponseView(UpdateView):
                 _("No %(verbose_name)s found matching the query") % {"verbose_name": queryset.model._meta.verbose_name}
             )
         return obj
+

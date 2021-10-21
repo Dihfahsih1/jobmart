@@ -1,0 +1,149 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+     Profile
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="main-body">
+    
+      <!-- Breadcrumb -->
+      <nav aria-label="breadcrumb" class="main-breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+          <!-- <li class="breadcrumb-item"><a href="javascript:void(0)">User</a></li> -->
+          <li class="breadcrumb-item active" aria-current="page">Your Profile</li>
+        </ol>
+      </nav>
+      <!-- /Breadcrumb -->
+
+      <div class="row gutters-sm">
+        <div class="col-md-4 mb-3">
+          <div class="card">
+            <div class="card-body">
+              <div class="d-flex flex-column align-items-center text-center">
+                <img src="{{ profile.avatar.url }}" alt="Admin" class="rounded-circle" width="150">
+                <div class="mt-3">
+                  <h4>{{profile.company_name}}</h4>
+                  <p class="text-secondary mb-1"></p>
+                  <p class="text-muted font-size-sm">{{profile}}</p>
+                  <!-- <button class="btn btn-primary">Follow</button>
+                  <button class="btn btn-outline-primary">Message</button> -->
+                </div>
+              </div>
+            </div>
+          </div>
+          <br>
+          {% comment %}
+          <h3>Favorite Jobs</h3>
+          <div class="card mt-3">
+            {% for favorite in applied %}
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+                  <h6 class="mb-0">Position: {{favorite.job}}</h6>
+                  <span class="text-secondary">Website: <a href=" " >{{favorite.job.website}}</a></span><br>
+                  <span class="text-secondary">Status: {{favorite.get_status}}</span>
+                </li>
+              </ul>
+              {% endfor %}
+              
+            </ul>
+          </div>
+          <br>
+          <h3>Employable Skills</h3>
+          <div class="card mt-3">
+            {% for skill in skills %}
+            <ul class="list-group list-group-flush">
+              
+              <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+                
+                <h6 class="mb-0">{{skill.skill}}</h6>
+
+              </li>
+            </ul>
+            {% endfor %}
+          </div>
+          {% endcomment %}
+          
+        </div>
+        <div class="col-md-8">
+          <div class="card mb-3">
+            <div class="card-body">
+              <div class="row">
+                <div class="col-sm-3">
+                  <h6 class="mb-0">Full Name</h6>
+                </div>
+                <div class="col-sm-9 text-secondary">
+                  {{profile.company_name}} 
+                </div>
+              </div>
+              <hr>
+              <div class="row">
+                <div class="col-sm-3">
+                  <h6 class="mb-0">Email</h6>
+                </div>
+                <div class="col-sm-9 text-secondary">
+                  {{profile}}
+                </div>
+              </div>
+              <hr>
+              <div class="row">
+                <div class="col-sm-3">
+                  <h6 class="mb-0">Phone</h6>
+                </div>
+                <div class="col-sm-9 text-secondary">
+                  {{profile.telephone}}
+                </div>
+              </div>
+              <hr>
+              <div class="row">
+                <div class="col-sm-3">
+                  <h6 class="mb-0">industry</h6>
+                </div>
+                <div class="col-sm-9 text-secondary">
+                  {{profile.gender}}
+                </div>
+              </div>
+              <hr>
+              <div class="row">
+                <div class="col-sm-3">
+                  <h6 class="mb-0">Address</h6>
+                </div>
+                <div class="col-sm-9 text-secondary">
+                  {{profile.address}}
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row gutters-sm">
+            <div class="col-sm-12 mb-3">
+              <div class="card h-100">
+                <div class="card-body">
+                  <h3 class="d-flex align-items-center mb-3"><i class="material-icons text-info mr-2">Your</i>Registration</h3> 
+                  {% comment %}
+                  <object data="{{ profile.resume.url }}" type="application/pdf" style="width:100%; height:600px;">
+                    <iframe src="https://docs.google.com/viewer?url={{profile.resume.url}}&embedded=true" 
+                      >
+                    </iframe>
+                  </object>
+                  {% endcomment %}
+                    
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <hr>
+              <div class="row">
+                <div class="col-sm-12">
+                  <a class="btn btn-info " href="{% url 'accounts:employee-profile-update'%}">Edit Your Profile</a>
+                </div>
+              </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+{% endblock %}
