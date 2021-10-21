@@ -14,6 +14,7 @@ class User(AbstractUser):
     avatar = models.FileField(upload_to='media/resume/', null=True, blank=True, default="media/default/avatar.png")
     gender = models.CharField(max_length=10, blank=True, null=True, default="")
     resume = models.FileField(upload_to='media/resume/', null=True, blank=True)
+    reg_document = models.FileField(upload_to='media/docs/', null=True, blank=True)
     registration_no = models.CharField(max_length=200, null=True, blank=True)
     telephone = models.CharField(max_length=200, null=True, blank=True)
     address = models.CharField(max_length=200, null=True, blank=True)

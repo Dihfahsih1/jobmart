@@ -13,6 +13,8 @@ from tags.models import Tag
 from accounts.models import User
 from jobsapp.decorators import user_is_employer
 from django.shortcuts import get_object_or_404
+from django.contrib.messages.views import SuccessMessageMixin
+from accounts.forms import EmployerProfileUpdateForm
 
 
 
@@ -233,3 +235,30 @@ class SendResponseView(UpdateView):
             )
         return obj
 
+class EditEmployerProfileView(SuccessMessageMixin,UpdateView):
+    model = User
+    form_class = EmployerProfileUpdateForm
+    context_object_name = "employer"
+    template_name = "jobs/employer/edit-employer-profile.html"
+    success_message = "Company profile was updated successfully!"
+    success_url = reverse_lazy("jobs:about-recruiter")
+
+    @method_decorator(login_required(login_url=reverse_lazy("accounts:login")))
+    @method_decorator(user_is_employer)
+    def dispatch(self, request, *args, **kwargs):
+        return super().dispatch(self.request, *args, **kwargs)
+
+    def get(self, request, *args, **kwargs):
+        try:
+            self.object = self.get_object()
+        except Http404:
+            raise Http404("User doesn't exists")
+        # context = self.get_context_data(object=self.object)
+        return self.render_to_response(self.get_context_data())
+
+    def get_object(self, queryset=None):
+        obj = self.request.user
+        print(obj)
+        if obj is None:
+            raise Http404("Job doesn't exists")
+        return obj

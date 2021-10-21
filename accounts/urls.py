@@ -3,7 +3,7 @@ from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 
-from jobsapp.views import EditProfileView
+from jobsapp.views import EditProfileView, EditEmployerProfileView
 from .views import *
 
 app_name = "accounts"
@@ -14,6 +14,8 @@ urlpatterns = [
     path("employer/register/", RegisterEmployerView.as_view(), name="employer-register"),
     
     path("employee/register/", RegisterJobSeeker.as_view(), name="employee-register"),
+    
+    path("employer/profile/update/", EditEmployerProfileView.as_view(), name="employer-profile-update"),
     
     path(
         "employee/profile/update/",

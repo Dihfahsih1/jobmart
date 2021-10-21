@@ -101,6 +101,7 @@ class EmployerRegistrationForm(UserCreationForm):
         self.fields["avatar"].label = "Company Logo"
         self.fields["address"].label = "Company Address"
         self.fields["registration_no"].label = "Company Registration Number"
+        self.fields["reg_document"].label = "Registration Document"
         self.fields["password1"].label = "Password"
         self.fields["password2"].label = "Confirm Password"
         
@@ -207,6 +208,16 @@ class UserLoginForm(forms.Form):
 
     def get_user(self):
         return self.user
+
+class EmployerProfileUpdateForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        super(EmployerProfileUpdateForm, self).__init__(*args, **kwargs)
+        self.fields["reg_document"].label = "Registration Document"
+
+
+    class Meta:
+        model = User #user
+        fields = ["avatar","company_name", "registration_no", "reg_document", "email","telephone","address"]
 
 
 class EmployeeProfileUpdateForm(forms.ModelForm):
