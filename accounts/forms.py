@@ -103,7 +103,6 @@ class EmployerRegistrationForm(UserCreationForm):
         self.fields["registration_no"].label = "Company Registration Number"
         self.fields["password1"].label = "Password"
         self.fields["password2"].label = "Confirm Password"
-
         self.fields["company_name"].widget.attrs.update(
             {
                 "placeholder": "Enter Company Name",
@@ -147,21 +146,23 @@ class EmployerRegistrationForm(UserCreationForm):
 
     class Meta:
         model = User
-        fields = ["first_name", 
-                  "last_name","registration_no",
+        fields = ["company_name", 
+                  "avatar",
+                  "registration_no",
+                  'address',
                   "telephone",
                   "email",
                   "password1", 
                   "password2",
             ]
         error_messages = {
-            "first_name": {
-                "required": "First name is required",
+            "company": {
+                "required": "Company name is required",
                 "max_length": "Name is too long",
             },
-            "last_name": {
-                "required": "Last name is required",
-                "max_length": "Last Name is too long",
+            "avatar": {
+                "required": "Company logo is required",
+                "max_length": "Company Logo is too big",
             },
         }
 
