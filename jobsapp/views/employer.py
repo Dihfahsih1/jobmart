@@ -12,6 +12,7 @@ from jobsapp.models import Job, Applicant
 from tags.models import Tag
 
 
+
 class DashboardView(ListView):
     model = Job
     template_name = "jobs/employer/dashboard.html"
@@ -77,7 +78,8 @@ class JobCreateView(CreateView):
         else:
             return self.form_invalid(form)
 
-
+def about_company(request):
+    data = User.objects.filter()
 @method_decorator(login_required(login_url=reverse_lazy("accounts:login")), name="dispatch")
 @method_decorator(user_is_employer, name="dispatch")
 class JobUpdateView(UpdateView):

@@ -8,6 +8,7 @@ urlpatterns = [
     path("", HomeView.as_view(), name="home"),
     path("favorite/", favorite, name="favorite"),
     path("search/", SearchView.as_view(), name="search"),
+    path("about-us", about_company.as_view(), name="about-recruiter"),
     path(
         "employer/dashboard/",
         include(

@@ -103,6 +103,7 @@ class EmployerRegistrationForm(UserCreationForm):
         self.fields["registration_no"].label = "Company Registration Number"
         self.fields["password1"].label = "Password"
         self.fields["password2"].label = "Confirm Password"
+        
         self.fields["company_name"].widget.attrs.update(
             {
                 "placeholder": "Enter Company Name",
