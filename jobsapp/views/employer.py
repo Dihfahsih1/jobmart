@@ -10,7 +10,7 @@ from jobsapp.decorators import user_is_employer
 from jobsapp.forms import CreateJobForm
 from jobsapp.models import Job, Applicant
 from tags.models import Tag
-from accounts.models import User
+from accounts.models import Skillset, User
 from jobsapp.decorators import user_is_employer
 from django.shortcuts import get_object_or_404
 from django.contrib.messages.views import SuccessMessageMixin
@@ -52,6 +52,7 @@ class ApplicantPerJobView(ListView):
         return context
 
 
+
 class JobCreateView(CreateView):
     template_name = "jobs/create.html"
     form_class = CreateJobForm
@@ -68,7 +69,7 @@ class JobCreateView(CreateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["tags"] = Tag.objects.all()
+        context["tags"] = Skillset.objects.all()
         return context
 
     def form_valid(self, form):

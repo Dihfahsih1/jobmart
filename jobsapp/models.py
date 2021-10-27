@@ -42,7 +42,8 @@ class Job(models.Model):
     def __str__(self):
         return self.title
 
-
+class Resume(models.Model):
+    pass
 class Applicant(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     upload_resume = models.FileField(upload_to='documents')

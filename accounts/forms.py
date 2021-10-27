@@ -151,6 +151,7 @@ class EmployerRegistrationForm(UserCreationForm):
         fields = ["company_name", 
                   "avatar",
                   "registration_no",
+                  "reg_document",
                   'address',
                   "telephone",
                   "email",

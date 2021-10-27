@@ -74,11 +74,11 @@
                                 <input id="salary" name="salary" type="number" min="1000" class="form-control" value="{{ form.salary.value|default_if_none:"" }}">
                             </div>
                             <div class="col-lg-6 form-group">
-                                <label for="tags">Tags</label>
+                                <label for="tags">Skills</label>
                                 <select id="tags" class="js-select2 form-control" name="tags" style="border-radius: 0" multiple="multiple" data-placeholder="Select Tags">
                                     {% for tag in tags %}
                                         {% tag_exists tag.id form.tags.value as tag_already_exists %}
-                                        <option value="{{ tag.id }}" {% if tag_already_exists %} selected {% endif %}>{{ tag.name }}</option>
+                                        <option value="{{ tag.id }}" {% if tag_already_exists %} selected {% endif %}>{{ tag.skill }}</option>
                                     {% endfor %}
                                 </select>
                             </div>
