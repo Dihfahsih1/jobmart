@@ -3,8 +3,7 @@ from django_elasticsearch_dsl.registries import registry
 from .models import Job
 
 
-# TODO disabled for testing purpose
-# @registry.register_document
+
 class JobDocument(Document):
     class Index:
         # Name of the Elasticsearch index
