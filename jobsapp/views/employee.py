@@ -41,7 +41,6 @@ class EditProfileView(SuccessMessageMixin,UpdateView):
     template_name = "jobs/employee/edit-profile.html"
     success_message = "Your profile was updated successfully!"
     success_url = reverse_lazy("jobs:profile-detail")
-
     @method_decorator(login_required(login_url=reverse_lazy("accounts:login")))
     @method_decorator(user_is_employee)
     def dispatch(self, request, *args, **kwargs):

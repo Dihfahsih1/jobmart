@@ -58,9 +58,17 @@ class EmployeeRegistrationForm(UserCreationForm):
             'avatar',
             'gender',
             "resume",
+            'academic_qualification',
+            'job_preference',
+            'level',
+            'profile_summary',
+            'current_salary',
+            'expected_salary',
             "email",
             "password1",
             "password2",
+            "terms_and_conditions",
+            
         ]
         error_messages = {
             "first_name": {
@@ -224,31 +232,9 @@ class EmployerProfileUpdateForm(forms.ModelForm):
 class EmployeeProfileUpdateForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super(EmployeeProfileUpdateForm, self).__init__(*args, **kwargs)
-        self.fields["first_name"].widget.attrs.update(
-            {
-                "placeholder": "Enter First Name",
-            }
-        )
-        self.fields["last_name"].widget.attrs.update(
-            {
-                "placeholder": "Enter Last Name",
-            }
-        )    
-        self.fields["avatar"].widget.attrs.update(
-            {
-                "placeholder": "Profile Picture",
-            }
-        )
-        
-        self.fields["telephone"].widget.attrs.update(
-            {
-                "placeholder": "Telephone Number",
-            }
-        )
-
     class Meta:
         model = User #user
-        fields = ["avatar","first_name", "last_name", "resume", "email","telephone","working_experience","birth_date","address"]
+        fields = ["avatar","first_name", "last_name", "resume", "email","telephone","address","working_experience","birth_date",]
 
 class ResetEmailForm(forms.Form):
     email = forms.EmailField()
