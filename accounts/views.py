@@ -51,30 +51,6 @@ class RegisterJobSeeker(CreateView):
                 addskills.save()
         return super(RegisterJobSeeker, self).form_valid(form)
 
-# def RegisterEmployeeView(request):
-#     form = EmployeeRegistrationForm
-#     SkillsFormset = modelformset_factory(User, form=SkillsForm, extra=3)
-#     context={"form":form, "SkillsFormset":SkillsFormset}
-#     if request.method == 'POST':
-#         formset = SkillsFormset(request.POST or None)
-#         form = EmployeeRegistrationForm(request.POST, request.FILES or None)
-        
-#         if all([form.is_valid(), formset.is_valid()]):
-#             user = form.save(commit=False)
-#             password = form.cleaned_data.get("password1")
-#             user.set_password(password)
-#             user.save()
-            
-#             for form in formset:
-#                 skill = form.save(commit=False)
-#                 skill.save()
-#             context['message'] = 'Data saved' 
-#             return redirect("accounts:login")
-#         return render(request,"accounts/employee/register.html", context)
-            
-#     return render(request,"accounts/employee/register.html", context)
-            
-
 
 class RegisterEmployerView(CreateView):
     model = User

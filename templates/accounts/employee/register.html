@@ -3,109 +3,200 @@
     Employee Register
 {% endblock %}
 {% load static %}
-
+{% load crispy_forms_tags %}
 {% block content %}
-
-<div class="col-lg-6 offset-3">
-    <div class="box">
-        <h3 class="heading">New account</h3>
-        <p class="lead">Not registered yet?</p>
-        <!-- <p class="text-muted">If you have any questions, please feel free to <a href="#">contact us</a>,
-            our customer service center is working for you 24/7.</p> -->
-        {% if form.errors %}
-            {% for field in form %}
-                {% for error in field.errors %}
-                    <div class="alert alert-danger alert-dismissable">
-                        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                        <strong>{{ error|escape }}</strong>
-                    </div>
-                {% endfor %}
-            {% endfor %}
-            {% for error in form.non_field_errors %}
+<style>
+    .sect {
+    display: none;
+    }
+    .sect:first-child {
+        display: block;
+    }
+    input[type="submit"] {
+        display:none;
+    }
+</style>
+<div class="container" style="background:white;">
+    <h2>Please Sign Up <small>It's free and always will be.</small></h2>
+    {% if form.errors %}
+        {% for field in form %}
+            {% for error in field.errors %}
                 <div class="alert alert-danger alert-dismissable">
                     <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
                     <strong>{{ error|escape }}</strong>
                 </div>
             {% endfor %}
-        {% endif %}
-        <form action="" method="post" enctype="multipart/form-data">
-            {% csrf_token %}
-            <h3>Your Skills</h3>
-
-                <table class="table">
-                    {{ addskills.management_form }}
-        
-                    {% for form in addskills.forms %}
-                        {% if forloop.first %}
-                            <thead>
-                            <tr>
-                                {% for field in form.visible_fields %}
-                                    <th>{{ field.label|capfirst }}</th>
-                                {% endfor %}
-                            </tr>
-                            </thead>
-                        {% endif %}
-                        <tr class="{% cycle row1 row2 %} formset_row">
-                            {% for field in form.visible_fields %}
-                                <td>
-                                    {# Include the hidden fields in the form #}
-                                    {% if forloop.first %}
-                                        {% for hidden in form.hidden_fields %}
-                                            {{ hidden }}
-                                        {% endfor %}
-                                    {% endif %}
-                                    {{ field.errors.as_ul }}
-                                    {{ field }}
-                                </td>
-                            {% endfor %}
-                        </tr>
-                    {% endfor %}
-                </table>
-            {% for field in form %}
-                {% if field.name == 'gender' %}
-
-                    <div class="form-group">
-                        <label for="gender">Gender</label>
-                        <br>
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="gender" id="male gender"
-                                   value="male">
-                            <label class="form-check-label" for="male">Male</label>
-                        </div>
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="gender" id="female"
-                                   value="female">
-                            <label class="form-check-label" for="female">Female</label>
-                        </div>
-                    </div>
-
-                {% else %}
-
-                    <div class="form-group">
-                        <label for="id_{{ field.name }}">{{ field.label }}</label>
-                        <input type="{{ field.field.widget.input_type }}" class="form-control" name="{{ field.name }}" id="id_{{ field.name }}" placeholder="{{ field.field.widget.attrs.placeholder }}">
-                    </div>
-                    
-                {% endif %}
-            {% endfor %}
-
-                
-            
-            <br>
-            <hr>
-            <div class="text-center">
-                <button type="submit" class="btn btn-outline-white-primary"><i class="fa fa-user-md"></i> Register
-                </button>
+        {% endfor %}
+        {% for error in form.non_field_errors %}
+            <div class="alert alert-danger alert-dismissable">
+                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                <strong>{{ error|escape }}</strong>
             </div>
-        </form>
-    </div>
-    <p class="lead">Already have an account? <a href="{% url 'accounts:login' %}"> Please Login</a></p>
+        {% endfor %}
+    {% endif %}
+		<form action="" method="post" enctype="multipart/form-data" role="form">
+            {% csrf_token %}
+			
+
+			<hr class="colorgraph">
+            <div class="row sect" >
+                <div class="col-lg-6 col-sm-3 col-md-3">
+                    {% csrf_token %}
+                    <h3>Your Skills</h3>
+        
+                        <table class="table">
+                            {{ addskills.management_form }}
+                
+                            {% for form in addskills.forms %}
+                                {% if forloop.first %}
+                                    <thead>
+                                    <tr>
+                                        {% for field in form.visible_fields %}
+                                            <th>{{ field.label|capfirst }}</th>
+                                        {% endfor %}
+                                    </tr>
+                                    </thead>
+                                {% endif %}
+                                <tr class="{% cycle row1 row2 %} formset_row">
+                                    {% for field in form.visible_fields %}
+                                        <td>
+                                            {# Include the hidden fields in the form #}
+                                            {% if forloop.first %}
+                                                {% for hidden in form.hidden_fields %}
+                                                    {{ hidden }}
+                                                {% endfor %}
+                                            {% endif %}
+                                            {{ field.errors.as_ul }}
+                                            {{ field }}
+                                        </td>
+                                    {% endfor %}
+                                </tr>
+                            {% endfor %}
+                        </table>
+                </div>
+            </div>
+             
+            <div class="row sect" style="border:2px solid red">
+                <div class="col-sm-6 col-md-6 col-lg-4">
+                    <div class="form-group">
+                        <label>Profile Photo</label>
+                        <input type="file" name="avatar">
+                    </div>
+                    <div class="form-group">
+                        <input type="text" name="first_name" id="first_name" class="form-control" placeholder="First Name">
+                    </div>
+                    <div class="form-group">
+                        <input type="text" name="last_name" id="last_name" class="form-control" placeholder="Last Name">
+                    </div>
+                </div>
+                <div class="col-sm-6 col-md-6 col-lg-4">
+                    <div class="form-group">
+                        <input type="text" name="email" id="email" class="form-control" placeholder="Email Address">
+                    </div>
+                    <div class="form-group">
+                        <input type="text" name="telephone" id="telephone" class="form-control" placeholder="Telephone Number">
+                    </div>
+                    <div class="form-group">
+                        <input type="text" name="address" id="address" class="form-control" placeholder="Residence">
+                    </div>
+                </div>
+                <div class="col-lg-4 col-sm-6 col-md-6">
+                    <div class="form-group">
+                        <input type="date" name="birth_date" id="birth_date" class="form-control" placeholder="Birth Date">
+                    </div>
+                    <div class="form-group">
+                        {{form.gender|as_crispy_field}}
+                    </div>
+                    <div class="form-group">
+                        <input type="text" name="last_name" id="last_name" class="form-control" placeholder="Last Name">
+                    </div>
+                </div>
+			</div>
+
+            <div class="row sect" style="border:2px solid red">
+                <div class="col-sm-6 col-md-6 col-lg-4">
+                    <div class="form-group">
+                        <label>Resume</label>
+                        <input type="file" name="resume">
+                    </div>
+                    <div class="form-group">
+                        <input type="number" name="working_experience" id="working_experience" class="form-control" placeholder="Years of Experience">
+                    </div>
+                    <div class="form-group">
+                        {{form.level|as_crispy_field}}
+                    </div>
+                </div>
+                <div class="col-sm-6 col-md-6 col-lg-4">
+                    <div class="form-group">
+                        <input type="text" name="email" id="email" class="form-control" placeholder="Email Address">
+                    </div>
+                    <div class="form-group">
+                        <input type="text" name="telephone" id="telephone" class="form-control" placeholder="Telephone Number">
+                    </div>
+                    <div class="form-group">
+                        <input type="text" name="address" id="address" class="form-control" placeholder="Residence">
+                    </div>
+                </div>
+                <div class="col-lg-4 col-sm-6 col-md-6">
+                    <div class="form-group">
+                        <input type="date" name="birth_date" id="birth_date" class="form-control" placeholder="Birth Date">
+                    </div>
+                    <div class="form-group">
+                        {{form.gender|as_crispy_field}}
+                    </div>
+                    <div class="form-group">
+                        <input type="text" name="last_name" id="last_name" class="form-control" placeholder="Last Name">
+                    </div>
+                </div>
+			</div>
+			<div class="row sect">
+				<div class="col-xs-4 col-sm-3 col-md-3">
+					<span class="button-checkbox">
+						<button type="button" class="btn" data-color="info" tabindex="7">I Agree</button>
+                        <input type="checkbox" name="t_and_c" id="t_and_c" class="hidden" value="1">
+					</span>
+				</div>
+				<div class="col-xs-8 col-sm-9 col-md-9">
+					 By clicking <strong class="label label-primary">Register</strong>, you agree to the <a href="#" data-toggle="modal" data-target="#t_and_c_m">Terms and Conditions</a> set out by this site, including our Cookie Use.
+				</div>
+			</div>
+            <button type="button" id="next">Next</button>
+            <input type="submit" value="submit">
+		</form>
+    <!-- Modal -->
+    <div class="modal fade" id="t_and_c_m" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    <h4 class="modal-title" id="myModalLabel">Terms & Conditions</h4>
+                </div>
+                <div class="modal-body">
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Similique, itaque, modi, aliquam nostrum at sapiente consequuntur natus odio reiciendis perferendis rem nisi tempore possimus ipsa porro delectus quidem dolorem ad.</p>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Similique, itaque, modi, aliquam nostrum at sapiente consequuntur natus odio reiciendis perferendis rem nisi tempore possimus ipsa porro delectus quidem dolorem ad.</p>
+                
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">I Agree</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
 </div>
-
-
-
-
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script type="text/javascript">
+    $("#next").click(function () {
+        var current = $(".sect:visible"),
+            total = $(".sect").length,
+            last = $(".sect:last");
+            $(current).next().show();
+            $(current).hide();
+            if ($(current).next().is(last)) {//check if it is last question
+                $("#next").hide();
+                $("input[type='submit']").show();
+            }
+        });
+    </script>
     <script src="{% static 'formset/jquery.formset.js' %}"></script>
     <script type="text/javascript">
         $('.formset_row').formset({
@@ -114,4 +205,72 @@
             prefix: 'skillset_set'
         });
     </script>
+    <script>
+        $(function () {
+            $('.button-checkbox').each(function () {
+
+                // Settings
+                var $widget = $(this),
+                    $button = $widget.find('button'),
+                    $checkbox = $widget.find('input:checkbox'),
+                    color = $button.data('color'),
+                    settings = {
+                        on: {
+                            icon: 'glyphicon glyphicon-check'
+                        },
+                        off: {
+                            icon: 'glyphicon glyphicon-unchecked'
+                        }
+                    };
+
+                // Event Handlers
+                $button.on('click', function () {
+                    $checkbox.prop('checked', !$checkbox.is(':checked'));
+                    $checkbox.triggerHandler('change');
+                    updateDisplay();
+                });
+                $checkbox.on('change', function () {
+                    updateDisplay();
+                });
+
+                // Actions
+                function updateDisplay() {
+                    var isChecked = $checkbox.is(':checked');
+
+                    // Set the button's state
+                    $button.data('state', (isChecked) ? "on" : "off");
+
+                    // Set the button's icon
+                    $button.find('.state-icon')
+                        .removeClass()
+                        .addClass('state-icon ' + settings[$button.data('state')].icon);
+
+                    // Update the button's color
+                    if (isChecked) {
+                        $button
+                            .removeClass('btn-default')
+                            .addClass('btn-' + color + ' active');
+                    }
+                    else {
+                        $button
+                            .removeClass('btn-' + color + ' active')
+                            .addClass('btn-default');
+                    }
+                }
+
+                // Initialization
+                function init() {
+
+                    updateDisplay();
+
+                    // Inject the icon if applicable
+                    if ($button.find('.state-icon').length == 0) {
+                        $button.prepend('<i class="state-icon ' + settings[$button.data('state')].icon + '"></i>');
+                    }
+                }
+                init();
+            });
+        });
+    </script>
+  
 {% endblock %}
