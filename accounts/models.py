@@ -30,7 +30,7 @@ class User(AbstractUser):
     
     telephone = models.CharField(max_length=200, null=True, blank=True)
     address = models.CharField(max_length=200, null=True, blank=True)
-    birth_date = models.DateTimeField(blank=True, null=True)
+    birth_date = models.DateField(blank=True, null=True)
     working_experience = models.IntegerField(default=0)
     
     academic_qualification = models.CharField(max_length=30,choices=QUALIFICATION, default='Degree')

@@ -100,7 +100,7 @@
                         </li>
                         
                         <li class="nav-item dropdown">
-                            <a id="clientZone" href="#" data-toggle="dropdown"
+                            <a id="clientZone" href="{% url 'jobs:profile-detail' %}" data-toggle="dropdown"
                                aria-haspopup="true" aria-expanded="false"
                                class="nav-link dropdown-toggle has-img mb-3 mb-lg-0 mt-3 mt-lg-0">
                                 <div class="client-menu-image">
@@ -116,7 +116,7 @@
                                     {{ request.user.first_name }}
                                 {% endif %}
                             </a>
-                            <div aria-labelledby="clientZone" class="dropdown-menu">
+                            <div class="dropdown-menu">
                                 <a href="{% url 'jobs:profile-detail' %}" class="dropdown-item">Your Profile</a>
                                 <a href="{% url 'accounts:logout' %}" class="dropdown-item">Logout</a>
                             </div>
@@ -186,20 +186,6 @@
             <div class="row">
                 <div class="col-md-4 text-md-left text-center">
                     <p>&copy;{% now "Y" %} Powered by RCS Consult Ltd</p>
-                </div>
-                <div class="col-md-8 text-center text-md-right github-buttons">
-                    {% comment %} <a href="" target="_blank" rel="noopener">
-                        <img alt="stars" src="https://img.shields.io/github/stars/manjurulhoque/django-job-portal?style=social"/>
-                    </a>
-                    <a href="https://github.com/manjurulhoque/django-job-portal" target="_blank" rel="noopener">
-                        <img alt="forks" src="https://img.shields.io/github/forks/manjurulhoque/django-job-portal?style=social"/>
-                    </a>
-                    <a href="https://github.com/manjurulhoque/django-job-portal/issues" target="_blank" rel="noopener">
-                        <img alt="issues" src="https://img.shields.io/github/issues/manjurulhoque/django-job-portal?style=social"/>
-                    </a>
-                    <a href="https://github.com/manjurulhoque/django-job-portal/#contributors-" target="_blank" rel="noopener">
-                        <img alt="translation" src="https://img.shields.io/badge/all_contributors-18-orange.svg?style=flat-square"/>
-                    </a> {% endcomment %}
                 </div>
             </div>
         </div>
