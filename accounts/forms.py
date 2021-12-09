@@ -235,7 +235,7 @@ class EmployerProfileUpdateForm(forms.ModelForm):
 class EmployeeProfileUpdateForm(forms.ModelForm):
     class Meta:
         model = User #user
-        fields = [  "first_name","last_name",'avatar', 'gender',  'birth_date', 'telephone',   'residence',  "resume", 'academic_qualification', 'job_preference',  'level',  'profile_summary',   'current_salary',  'expected_salary',   "email",  "terms_and_conditions",]
+        fields = [  "first_name","last_name",'avatar', 'gender',  'birth_date', 'telephone',   'residence',  "resume", 'academic_qualification', 'job_preference',  'level',  'profile_summary',   'current_salary',  'expected_salary',   "email",  "terms_and_conditions",'working_experience']
 
 class ResetEmailForm(forms.Form):
     email = forms.EmailField()

@@ -17,7 +17,7 @@ QUALIFICATION =(('PhD','PhD'),('Masters','Masters'),('Degree','Degree'),('Diplom
 
 class User(AbstractUser):
     username = None
-    role = models.CharField(max_length=12, error_messages={"required": "Role must be provided"})
+    role = models.CharField(max_length=12, error_messages={"required": "Role must be provided"}, null=True, blank=True)
     
     company_name = models.CharField(max_length=200, null=True, blank=True)
     reg_document = models.FileField(upload_to='media/docs/', null=True, blank=True)
@@ -25,14 +25,14 @@ class User(AbstractUser):
     residence = models.CharField(max_length=200, null=True, blank=True)
     
     avatar = models.FileField(upload_to='media/resume/', null=True, blank=True, default="media/default/avatar.png")
-    gender = models.CharField(max_length=8,choices=GENDER_CHOICES, default='male')
+    gender = models.CharField(max_length=8,choices=GENDER_CHOICES, default='male',null=True, blank=True)
     resume = models.FileField(upload_to='media/resume/', null=True, blank=True)
-    terms_and_conditions = models.BooleanField(default=False)
+    terms_and_conditions = models.BooleanField(default=False,null=True, blank=True)
     
     telephone = models.CharField(max_length=200, null=True, blank=True)
     address = models.CharField(max_length=200, null=True, blank=True)
     birth_date = models.DateField(blank=True, null=True)
-    working_experience = models.IntegerField(default=0)
+    working_experience = models.IntegerField(default=0,null=True, blank=True)
     
     academic_qualification = models.CharField(max_length=30,choices=QUALIFICATION, default='Degree')
     job_preference = models.CharField(max_length=30,choices=JOB_NATURE, default='Full Time')

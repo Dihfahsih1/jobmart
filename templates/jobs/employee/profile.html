@@ -35,21 +35,6 @@
             </div>
           </div>
           <br>
-          <h3>Favorite Jobs</h3>
-          <div class="card mt-3">
-            {% for favorite in applied %}
-            <ul class="list-group list-group-flush">
-                <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
-                  <h6 class="mb-0">Position: {{favorite.job}}</h6>
-                  <span class="text-secondary">Website: <a href=" " >{{favorite.job.website}}</a></span><br>
-                  <span class="text-secondary">Status: {{favorite.get_status}}</span>
-                </li>
-              </ul>
-              {% endfor %}
-              
-            </ul>
-          </div>
-          <br>
           <h3>Employable Skills</h3>
           <div class="card mt-3">
             {% for skill in skills %}
@@ -108,18 +93,18 @@
                   <h6 class="mb-0">Address</h6>
                 </div>
                 <div class="col-sm-9 text-secondary">
-                  {{profile.address}}
+                  {{profile.residence}}
                 </div>
               </div>
             </div>
           </div>
 
           <div class="row gutters-sm">
-            <div class="col-sm-12 mb-3">
+            <div class="col-lg-12  col-sm-12 mb-3">
               <div class="card h-100">
                 <div class="card-body">
                   <h3 class="d-flex align-items-center mb-3"><i class="material-icons text-info mr-2">Your</i>Resume</h3> 
-                    <object data="{{ profile.resume.url }}" type="application/pdf" style="width:100%; height:600px;">
+                    <object data="{{ profile.resume.url }}" type="application/pdf" style="width:100%; height:300px;">
                       <iframe src="https://docs.google.com/viewer?url={{profile.resume.url}}&embedded=true" 
                         >
                       </iframe>

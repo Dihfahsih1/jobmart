@@ -94,9 +94,6 @@
                         
                     {% elif request.user.is_authenticated and request.user.role == 'employee' %}
                         <li class="nav-item">
-                            <a href="{% url 'jobs:employee-favorites' %}" class="nav-link">Favorites</a>
-                        </li>
-                        <li class="nav-item">
                             <a href="{% url 'jobs:employee-my-applications' %}" class="nav-link">My Applications</a>
                         </li>
                         
@@ -112,7 +109,7 @@
                                     </div>
                                 </div>
                                 {% if request.user.role == 'employee' %}
-                                    {{ request.user.first_name }} {{ request.user.last_name }}
+                                    Your Profile
                                 {% else %}
                                     {{ request.user.first_name }}
                                 {% endif %}
