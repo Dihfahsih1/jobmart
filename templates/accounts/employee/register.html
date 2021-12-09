@@ -5,18 +5,8 @@
 {% load static %}
 {% load crispy_forms_tags %}
 {% block content %}
-<style>
-    .sect {
-    display: none;
-    }
-    .sect:first-child {
-        display: block;
-    }
-    input[type="submit"] {
-        display:none;
-    }
-</style>
-<div class="container" style="background:white;">
+
+<div class="container" style="background:white; max-width: 900px;">
     <h2>Please Sign Up <small>It's free and always will be.</small></h2>
     {% if form.errors %}
         {% for field in form %}
@@ -42,8 +32,7 @@
             <div class="row sect" >
                 <div class="col-lg-6 col-sm-3 col-md-3">
                     {% csrf_token %}
-                    <h3>Your Skills</h3>
-        
+                    <h4>Add Your Skills</h4>
                         <table class="table">
                             {{ addskills.management_form }}
                 
@@ -76,7 +65,7 @@
                 </div>
             </div>
              
-            <div class="row sect" style="border:2px solid red">
+            <div class="row">
                 <div class="col-sm-6 col-md-6 col-lg-4">
                     <div class="form-group">
                         <label>Profile Photo</label>
@@ -108,60 +97,68 @@
                         {{form.gender|as_crispy_field}}
                     </div>
                     <div class="form-group">
-                        <input type="text" name="last_name" id="last_name" class="form-control" placeholder="Last Name">
+                        <input type="number" name="working_experience" id="working_experience" class="form-control" placeholder="Years of Experience">
                     </div>
                 </div>
 			</div>
-
-            <div class="row sect" style="border:2px solid red">
+            <hr>
+            <div class="row">
                 <div class="col-sm-6 col-md-6 col-lg-4">
                     <div class="form-group">
                         <label>Resume</label>
                         <input type="file" name="resume">
                     </div>
-                    <div class="form-group">
-                        <input type="number" name="working_experience" id="working_experience" class="form-control" placeholder="Years of Experience">
-                    </div>
+                    
                     <div class="form-group">
                         {{form.level|as_crispy_field}}
                     </div>
                 </div>
                 <div class="col-sm-6 col-md-6 col-lg-4">
                     <div class="form-group">
-                        <input type="text" name="email" id="email" class="form-control" placeholder="Email Address">
+                        {{form.job_preference|as_crispy_field}}
                     </div>
                     <div class="form-group">
-                        <input type="text" name="telephone" id="telephone" class="form-control" placeholder="Telephone Number">
+                        {{form.academic_qualification|as_crispy_field}}
+                    </div>
+                </div>
+
+                <div class="col-sm-6 col-md-6 col-lg-4">
+                    <div class="form-group">
+                        <textarea type="text" name="profile_summary" id="profile_summary" class="form-control" placeholder="Profile Summary"></textarea>
+                    </div>
+                </div>
+                
+			</div>
+            <hr>
+            <div class="row">
+                <div class="col-sm-6 col-md-6 col-lg-4">
+                    <div class="form-group">
+                        <input type="number" name="current_salary" id="current_salary" class="form-control" placeholder="Current Salary">
                     </div>
                     <div class="form-group">
-                        <input type="text" name="address" id="address" class="form-control" placeholder="Residence">
+                        <input type="number" name="expected_salary" id="expected_salary" class="form-control" placeholder="Expected Salary">
                     </div>
                 </div>
                 <div class="col-lg-4 col-sm-6 col-md-6">
                     <div class="form-group">
-                        <input type="date" name="birth_date" id="birth_date" class="form-control" placeholder="Birth Date">
+                        <input type="password" name="password1" id="password1" class="form-control" placeholder="Password" autocomplete="new-password">
                     </div>
+
                     <div class="form-group">
-                        {{form.gender|as_crispy_field}}
-                    </div>
-                    <div class="form-group">
-                        <input type="text" name="last_name" id="last_name" class="form-control" placeholder="Last Name">
+                        <input type="password" name="password2" id="password2" class="form-control" placeholder="Confirm Password" autocomplete="new-password"> 
                     </div>
                 </div>
+                <div class="col-lg-4 col-sm-6 col-md-6">
+                    <span class="button-checkbox">
+                        <label>Terms and Conditions</label>
+						{{form.terms_and_conditions}}
+					</span><br>
+                    By clicking <strong class="label label-primary">Register</strong>, you agree to the <a href="#">Terms and Conditions</a> set out by this site, including our Cookie Use.
+                </div>
 			</div>
-			<div class="row sect">
-				<div class="col-xs-4 col-sm-3 col-md-3">
-					<span class="button-checkbox">
-						<button type="button" class="btn" data-color="info" tabindex="7">I Agree</button>
-                        <input type="checkbox" name="t_and_c" id="t_and_c" class="hidden" value="1">
-					</span>
-				</div>
-				<div class="col-xs-8 col-sm-9 col-md-9">
-					 By clicking <strong class="label label-primary">Register</strong>, you agree to the <a href="#" data-toggle="modal" data-target="#t_and_c_m">Terms and Conditions</a> set out by this site, including our Cookie Use.
-				</div>
-			</div>
-            <button type="button" id="next">Next</button>
-            <input type="submit" value="submit">
+            <hr>
+            <button class="btn btn-dark" type="submit">Register 
+            </button>
 		</form>
     <!-- Modal -->
     <div class="modal fade" id="t_and_c_m" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -184,93 +181,14 @@
     </div><!-- /.modal -->
 </div>
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+
+<script src="{% static 'formset/jquery.formset.js' %}"></script>
 <script type="text/javascript">
-    $("#next").click(function () {
-        var current = $(".sect:visible"),
-            total = $(".sect").length,
-            last = $(".sect:last");
-            $(current).next().show();
-            $(current).hide();
-            if ($(current).next().is(last)) {//check if it is last question
-                $("#next").hide();
-                $("input[type='submit']").show();
-            }
-        });
-    </script>
-    <script src="{% static 'formset/jquery.formset.js' %}"></script>
-    <script type="text/javascript">
-        $('.formset_row').formset({
-            addText: 'Add More Skills',
-            deleteText: 'Remove',
-            prefix: 'skillset_set'
-        });
-    </script>
-    <script>
-        $(function () {
-            $('.button-checkbox').each(function () {
-
-                // Settings
-                var $widget = $(this),
-                    $button = $widget.find('button'),
-                    $checkbox = $widget.find('input:checkbox'),
-                    color = $button.data('color'),
-                    settings = {
-                        on: {
-                            icon: 'glyphicon glyphicon-check'
-                        },
-                        off: {
-                            icon: 'glyphicon glyphicon-unchecked'
-                        }
-                    };
-
-                // Event Handlers
-                $button.on('click', function () {
-                    $checkbox.prop('checked', !$checkbox.is(':checked'));
-                    $checkbox.triggerHandler('change');
-                    updateDisplay();
-                });
-                $checkbox.on('change', function () {
-                    updateDisplay();
-                });
-
-                // Actions
-                function updateDisplay() {
-                    var isChecked = $checkbox.is(':checked');
-
-                    // Set the button's state
-                    $button.data('state', (isChecked) ? "on" : "off");
-
-                    // Set the button's icon
-                    $button.find('.state-icon')
-                        .removeClass()
-                        .addClass('state-icon ' + settings[$button.data('state')].icon);
-
-                    // Update the button's color
-                    if (isChecked) {
-                        $button
-                            .removeClass('btn-default')
-                            .addClass('btn-' + color + ' active');
-                    }
-                    else {
-                        $button
-                            .removeClass('btn-' + color + ' active')
-                            .addClass('btn-default');
-                    }
-                }
-
-                // Initialization
-                function init() {
-
-                    updateDisplay();
-
-                    // Inject the icon if applicable
-                    if ($button.find('.state-icon').length == 0) {
-                        $button.prepend('<i class="state-icon ' + settings[$button.data('state')].icon + '"></i>');
-                    }
-                }
-                init();
-            });
-        });
-    </script>
+    $('.formset_row').formset({
+        addText: 'Add More Skills',
+        deleteText: 'Remove',
+        prefix: 'skillset_set'
+    });
+</script>
   
 {% endblock %}
