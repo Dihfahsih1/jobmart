@@ -271,4 +271,6 @@ SOCIAL_AUTH_PIPELINE = (
 # EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 django_on_heroku.settings(locals())
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
+BOOTSTRAP4 = {'include_jquery': True,}
 

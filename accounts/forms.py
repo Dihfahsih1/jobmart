@@ -233,11 +233,9 @@ class EmployerProfileUpdateForm(forms.ModelForm):
 
 
 class EmployeeProfileUpdateForm(forms.ModelForm):
-    def __init__(self, *args, **kwargs):
-        super(EmployeeProfileUpdateForm, self).__init__(*args, **kwargs)
     class Meta:
         model = User #user
-        fields = ["avatar","first_name", "last_name", "resume", "email","telephone","address","working_experience","birth_date",]
+        fields = [  "first_name","last_name",'avatar', 'gender',  'birth_date', 'telephone',   'residence',  "resume", 'academic_qualification', 'job_preference',  'level',  'profile_summary',   'current_salary',  'expected_salary',   "email",  "terms_and_conditions",]
 
 class ResetEmailForm(forms.Form):
     email = forms.EmailField()
