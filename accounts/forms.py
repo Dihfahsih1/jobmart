@@ -224,17 +224,20 @@ class UserLoginForm(forms.Form):
 class EmployerProfileUpdateForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super(EmployerProfileUpdateForm, self).__init__(*args, **kwargs)
-        self.fields["reg_document"].label = "Registration Document"
+        self.fields["reg_document"].label = "Registration Certificate"
+        
+        self.fields["avatar"].label = "Company Logo"
+        
 
 
     class Meta:
-        model = User #user
+        model = User #user model
         fields = ["avatar","company_name", "registration_no", "reg_document", "email","telephone","address"]
 
 
 class EmployeeProfileUpdateForm(forms.ModelForm):
     class Meta:
-        model = User #user
+        model = User #user model
         fields = [  "first_name","last_name",'avatar', 'gender',  'birth_date', 'telephone',   'residence',  "resume", 'academic_qualification', 'job_preference',  'level',  'profile_summary',   'current_salary',  'expected_salary',   "email",  "terms_and_conditions",'working_experience']
 
 class ResetEmailForm(forms.Form):

@@ -2,6 +2,7 @@ from django.contrib.auth.models import AbstractUser
 from django.db import models
 
 from accounts.managers import UserManager
+from django.utils.timezone import now
 
 GENDER_CHOICES = (("male", "Male"), ("female", "Female"))
 EXPERIENCE_LEVEL = (('1','Executive Level'),
@@ -17,6 +18,7 @@ QUALIFICATION =(('PhD','PhD'),('Masters','Masters'),('Degree','Degree'),('Diplom
 
 class User(AbstractUser):
     username = None
+    registration_date = models.DateTimeField(default=now, editable=False)
     role = models.CharField(max_length=12, error_messages={"required": "Role must be provided"}, null=True, blank=True)
     
     company_name = models.CharField(max_length=200, null=True, blank=True)
