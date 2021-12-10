@@ -1,50 +1,85 @@
 {% extends 'base.html' %}
-{% load static %}
+{% load static crispy_forms_tags %}
+
 {% block title %}
     Edit Profile
 {% endblock %}
-
 {% block content %}
-    <div class="col-lg-6 offset-3">
-        <div class="box">
-            <h3 class="heading">Edit Profile</h3>
-            {% if form.errors %}
-                {% for field in form %}
-                    {% for error in field.errors %}
-                        <div class="alert alert-danger alert-dismissable">
-                            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                            <strong>{{ error|escape }}</strong>
+<style>
+    .form-group{
+        margin:5px
+    }
+</style>
+<div class="container" >
+    <h3 class="heading">Edit Profile</h3>
+    {% if form.errors %}
+        {% for field in form %}
+            {% for error in field.errors %}
+                <div class="alert alert-danger alert-dismissable">
+                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                    <strong>{{ error|escape }}</strong>
+                </div>
+            {% endfor %}
+        {% endfor %}
+        {% for error in form.non_field_errors %}
+            <div class="alert alert-danger alert-dismissable">
+                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                <strong>{{ error|escape }}</strong>
+            </div>
+        {% endfor %}
+    {% endif %}
+    <form action="" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="row" >
+            <div class="col-lg-4" >
+                <div class="box">
+                    <img src="{{ request.user.avatar.url }}" alt="avatar" class="rounded-circle">
+                    {{ form.avatar|as_crispy_field }}
+                </div>
+            </div>
+            <div class="col-lg-8" >
+                <div class="box">
+                    <div class="form-row">
+                        <div class="form-group">
+                            {{ form.company_name|as_crispy_field }}
                         </div>
-                    {% endfor %}
-                {% endfor %}
-                {% for error in form.non_field_errors %}
-                    <div class="alert alert-danger alert-dismissable">
-                        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                        <strong>{{ error|escape }}</strong>
+                        <div class="form-group">
+                            {{ form.email|as_crispy_field }}
+                        </div>
+                        <div class="form-group">
+                            {{ form.telephone|as_crispy_field }}
+                        </div>
+                        <div class="form-group">
+                            {{ form.address|as_crispy_field }}
+                        </div>
                     </div>
-                {% endfor %}
-            {% endif %}
-            <form action="" method="post" enctype="multipart/form-data">
-                {% csrf_token %}
-                {% for field in form %}
+                </div>
+            </div>
+        </div>
 
-                  <div class="form-group">
-                      <label for="id_{{ field.name }}">{{ field.label }}</label>
-                      <input type="{{ field.field.widget.input_type }}"
-                              class="form-control"
-                              name="{{ field.name }}"
-                              id="id_{{ field.name }}"
-                              value="{{ field.value }}"
-                              placeholder="{{ field.field.widget.attrs.placeholder }}">
-                  </div>
-
-                {% endfor %}
+        <div class="row" >
+            {% comment %}
+            <div class="col-lg-4" >
+                <div class="box">
+                    <object data="{{ request.user.reg_document.url }}" type="application/pdf" style="width:100%; height:200px;">
+                        <iframe src="https://docs.google.com/viewer?url={{request.user.reg_document.url}}&embedded=true" 
+                          >
+                        </iframe>
+                      </object>
+                    {{ form.reg_document|as_crispy_field }}
+                </div>
+            </div>
+            {% endcomment %}
+           
+            <div class="col-lg-8" >
                 <div class="text-center">
                     <button type="submit" class="btn btn-outline-white-primary">
-                        <i class="fa fa-signing"></i> Update Profile
+                        <i class="fa fa-signing"></i> Update
                     </button>
                 </div>
-            </form>
+            </div>
         </div>
-    </div>
+    </form>
+</div>  
+    
 {% endblock %}

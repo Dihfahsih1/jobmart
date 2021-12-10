@@ -28,44 +28,11 @@
                   <h4>{{profile.company_name}}</h4>
                   <p class="text-secondary mb-1"></p>
                   <p class="text-muted font-size-sm">{{profile}}</p>
-                  <!-- <button class="btn btn-primary">Follow</button>
-                  <button class="btn btn-outline-primary">Message</button> -->
                 </div>
               </div>
             </div>
           </div>
           <br>
-          {% comment %}
-          <h3>Favorite Jobs</h3>
-          <div class="card mt-3">
-            {% for favorite in applied %}
-            <ul class="list-group list-group-flush">
-                <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
-                  <h6 class="mb-0">Position: {{favorite.job}}</h6>
-                  <span class="text-secondary">Website: <a href=" " >{{favorite.job.website}}</a></span><br>
-                  <span class="text-secondary">Status: {{favorite.get_status}}</span>
-                </li>
-              </ul>
-              {% endfor %}
-              
-            </ul>
-          </div>
-          <br>
-          <h3>Employable Skills</h3>
-          <div class="card mt-3">
-            {% for skill in skills %}
-            <ul class="list-group list-group-flush">
-              
-              <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
-                
-                <h6 class="mb-0">{{skill.skill}}</h6>
-
-              </li>
-            </ul>
-            {% endfor %}
-          </div>
-          {% endcomment %}
-          
         </div>
         <div class="col-md-8">
           <div class="card mb-3">
@@ -102,7 +69,7 @@
                   <h6 class="mb-0">industry</h6>
                 </div>
                 <div class="col-sm-9 text-secondary">
-                  {{profile.gender}}
+                  {{profile.industry}}
                 </div>
               </div>
               <hr>
