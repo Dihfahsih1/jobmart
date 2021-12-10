@@ -97,7 +97,7 @@ class EmployerRegistrationForm(UserCreationForm):
     class Meta:
         model = User
         fields = ["company_name", "avatar", "registration_no",
-                  "reg_document", 'address',  "telephone",
+                  "reg_document", 'address',  "telephone","industry",
                   "email",   "password1",   "password2",
             ]
         error_messages = {
@@ -160,7 +160,7 @@ class EmployerProfileUpdateForm(forms.ModelForm):
 
     class Meta:
         model = User #user model
-        fields = ["avatar","company_name", "registration_no", "reg_document", "email","telephone","address"]
+        fields = ["avatar","company_name","industry", "registration_no", "reg_document", "email","telephone","address"]
 
 class EmployeeProfileUpdateForm(forms.ModelForm):
     class Meta:

@@ -24,6 +24,7 @@ class User(AbstractUser):
     company_name = models.CharField(max_length=200, null=True, blank=True)
     reg_document = models.FileField(upload_to='media/docs/', null=True, blank=True)
     registration_no = models.CharField(max_length=200, null=True, blank=True)
+    industry = models.CharField(max_length=200, null=True, blank=True)
     residence = models.CharField(max_length=200, null=True, blank=True)
     
     avatar = models.FileField(upload_to='media/avatars/', null=True, blank=True, default="media/default/avatar.png")
