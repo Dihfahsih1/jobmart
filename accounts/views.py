@@ -24,12 +24,9 @@ class RegisterJobSeeker(CreateView):
     success_url = reverse_lazy('accounts:login')
     template_name = "accounts/employee/register.html"
     form_class=EmployeeRegistrationForm
-    
-
     def get_context_data(self, **kwargs):
         data = super(RegisterJobSeeker, self).get_context_data(**kwargs)
         if self.request.POST:
-            #data['familymembers'] = FamilyMemberFormSet(self.request.POST)
             data['addskills'] = JobseekskilsFormset(self.request.POST)
         else:
             data['addskills'] = JobseekskilsFormset()
@@ -54,6 +51,7 @@ class RegisterJobSeeker(CreateView):
 
 class RegisterEmployerView(CreateView):
     model = User
+    success_message = 'Your Account has been created sucessfully!'
     form_class = EmployerRegistrationForm
     template_name = "accounts/employer/register.html"
     success_url = "/"
@@ -65,7 +63,7 @@ class RegisterEmployerView(CreateView):
         return super().dispatch(self.request, *args, **kwargs)
 
     def post(self, request, *args, **kwargs):
-        form = self.form_class(data=request.POST)
+        form = self.form_class(request.POST, request.FILES )
         if form.is_valid():
             user = form.save(commit=False)
             password = form.cleaned_data.get("password1")

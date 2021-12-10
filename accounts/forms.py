@@ -53,24 +53,10 @@ class EmployeeRegistrationForm(UserCreationForm):
         
         exclude = ()
         fields = [
-            "first_name",
-            "last_name",
-            'avatar',
-            'gender',
-            'birth_date',
-            'telephone',
-            'residence',
-            "resume",
-            'academic_qualification',
-            'job_preference',
-            'level',
-            'profile_summary',
-            'current_salary',
-            'expected_salary',
-            "email",
-            "password1",
-            "password2",
-            "terms_and_conditions",
+            "first_name", "last_name", 'avatar', 'gender',
+            'birth_date', 'telephone','residence', "resume",
+            'academic_qualification','job_preference',   'level',  'profile_summary',   'current_salary',
+            'expected_salary',"email", "password1",  "password2", "terms_and_conditions",
             
         ]
         error_messages = {
@@ -108,66 +94,11 @@ JobseekskilsFormset = inlineformset_factory(User, Skillset, form=SkillsetForm, e
 class EmployerRegistrationForm(UserCreationForm):
     def __init__(self, *args, **kwargs):
         super(EmployerRegistrationForm, self).__init__(*args, **kwargs)
-        self.fields["company_name"].label = "Company Name"
-        self.fields["avatar"].label = "Company Logo"
-        self.fields["address"].label = "Company Address"
-        self.fields["registration_no"].label = "Company Registration Number"
-        self.fields["reg_document"].label = "Registration Document"
-        self.fields["password1"].label = "Password"
-        self.fields["password2"].label = "Confirm Password"
-        
-        self.fields["company_name"].widget.attrs.update(
-            {
-                "placeholder": "Enter Company Name",
-            }
-        )
-        self.fields["address"].widget.attrs.update(
-            {
-                "placeholder": "Enter Company Address",
-            }
-        )
-        
-        self.fields["registration_no"].widget.attrs.update(
-            {
-                "placeholder": "Enter Company Reg No.",
-            }
-        )
-        
-        self.fields["telephone"].widget.attrs.update(
-            {
-                "placeholder": "Enter Company Phone No.",
-            }
-        )
-        
-        self.fields["email"].widget.attrs.update(
-            {
-                "placeholder": "Enter Email",
-            }
-        )
-        self.fields["password1"].widget.attrs.update(
-            {
-                "placeholder": "Enter Password",
-            }
-        )
-        self.fields["password2"].widget.attrs.update(
-            {
-                "placeholder": "Confirm Password",
-            }
-        )
-        
-        
-
     class Meta:
         model = User
-        fields = ["company_name", 
-                  "avatar",
-                  "registration_no",
-                  "reg_document",
-                  'address',
-                  "telephone",
-                  "email",
-                  "password1", 
-                  "password2",
+        fields = ["company_name", "avatar", "registration_no",
+                  "reg_document", 'address',  "telephone",
+                  "email",   "password1",   "password2",
             ]
         error_messages = {
             "company": {
@@ -225,15 +156,11 @@ class EmployerProfileUpdateForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super(EmployerProfileUpdateForm, self).__init__(*args, **kwargs)
         self.fields["reg_document"].label = "Registration Certificate"
-        
         self.fields["avatar"].label = "Company Logo"
-        
-
 
     class Meta:
         model = User #user model
         fields = ["avatar","company_name", "registration_no", "reg_document", "email","telephone","address"]
-
 
 class EmployeeProfileUpdateForm(forms.ModelForm):
     class Meta:

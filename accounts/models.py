@@ -26,7 +26,7 @@ class User(AbstractUser):
     registration_no = models.CharField(max_length=200, null=True, blank=True)
     residence = models.CharField(max_length=200, null=True, blank=True)
     
-    avatar = models.FileField(upload_to='media/resume/', null=True, blank=True, default="media/default/avatar.png")
+    avatar = models.FileField(upload_to='media/avatars/', null=True, blank=True, default="media/default/avatar.png")
     gender = models.CharField(max_length=8,choices=GENDER_CHOICES, default='male',null=True, blank=True)
     resume = models.FileField(upload_to='media/resume/', null=True, blank=True)
     terms_and_conditions = models.BooleanField(default=False,null=True, blank=True)
