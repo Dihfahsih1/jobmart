@@ -55,13 +55,13 @@
             <div id="navbarSupportedContent" class="collapse navbar-collapse" style="text-align:center">
                 <ul class="navbar-nav ml-auto" style="text-align:center">
                     <li class="nav-item active">
-                        <a href="{% url 'jobs:home' %}" class="nav-link">Home <span class="sr-only">(current)</span></a>
+                        <a href="{% url 'jobs:home' %}" class="dropdown-item">Home <span class="sr-only">(current)</span></a>
                     </li>
                     <li class="nav-item">
-                        <a href="{% url 'jobs:jobs' %}" class="nav-link">Jobs</a>
+                        <a href="{% url 'jobs:jobs' %}" class="dropdown-item">Jobs</a>
                     </li>
                     <li class="nav-item">
-                        <a href="{% url 'jobs:about-recruiter' %}" class="nav-link">Profile</a>
+                        <a href="{% url 'jobs:about-recruiter' %}" class="dropdown-item">Profile</a>
                     </li>
                     <li class="nav-item">
                         <a href="{% url 'jobs:employer-dashboard' %}" class="dropdown-item">Dashboard</a>
@@ -205,6 +205,9 @@
     </div> 
 </footer>
 
+<!-- ckeditor -->
+<script type="text/javascript" src="{% static 'ckeditor/ckeditor-init.js' %}"></script>
+<script type="text/javascript" src="{% static 'ckeditor/ckeditor/ckeditor.js'%}"></script>
 
 <script src="{% static 'vendor/popper.js/umd/popper.min.js' %}"></script>
 <script src="{% static 'vendor/bootstrap/js/bootstrap.min.js' %}"></script>
@@ -217,6 +220,7 @@
 
 <script type="text/javascript">
     function changeLanguage(event) {
+        
     }
 </script>
 

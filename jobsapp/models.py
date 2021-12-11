@@ -5,6 +5,7 @@ from django.utils import timezone
 from accounts.models import User
 from tags.models import Tag
 from .manager import JobManager
+from ckeditor.fields import RichTextField
 
 JOB_TYPE = (
     ("1", "Full time"),
@@ -16,7 +17,7 @@ JOB_TYPE = (
 class Job(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     title = models.CharField(max_length=300)
-    description = models.TextField()
+    description = RichTextField()
     location = models.CharField(max_length=150)
     type = models.CharField(choices=JOB_TYPE, max_length=10)
     category = models.CharField(max_length=100)

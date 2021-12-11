@@ -9,7 +9,6 @@ env = environ.Env()
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 environ.Env.read_env(os.path.join(BASE_DIR, ".env"))
 
-
 SECRET_KEY = "@pzqp#x^+#(olu#wy(6=mi9&a8n+g&x#af#apn07@j=5oin=xb"
 
 # DEBUG = True
@@ -35,10 +34,13 @@ INSTALLED_APPS = [
     "jobsapp",
     "accounts",
     "tags",
+    "ckeditor",
+    "ckeditor_uploader",
     "oauth2_provider",
     "social_django",
     "rest_framework_social_oauth2",
     "django.contrib.humanize",
+    
 ]
 X_FRAME_OPTIONS = 'SAMEORIGIN'
 
@@ -55,6 +57,10 @@ MIDDLEWARE = [
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     "social_django.middleware.SocialAuthExceptionMiddleware",
 ]
+
+CKEDITOR_BASEPATH = "/static/ckeditor/ckeditor/"
+CKEDITOR_UPLOAD_PATH = "uploads/"
+CKEDITOR_RESTRICT_BY_DATE = True
 
 ROOT_URLCONF = "jobs.urls"
 
@@ -273,4 +279,15 @@ EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 django_on_heroku.settings(locals())
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 BOOTSTRAP4 = {'include_jquery': True,}
+
+DJRICHTEXTFIELD_CONFIG = {
+    'js': ['//cdn.tiny.cloud/1/no-api-key/tinymce/5/tinymce.min.js'],
+    'init_template': 'djrichtextfield/init/tinymce.js',
+    'settings': {
+        'menubar': False,
+        'plugins': 'link image',
+        'toolbar': 'bold italic | link image | removeformat',
+        'width': 700
+    }
+}
 
