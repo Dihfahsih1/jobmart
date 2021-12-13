@@ -5,6 +5,7 @@ from django.utils import timezone
 from accounts.models import User
 from tags.models import Tag
 from .manager import JobManager
+from accounts.models import Skillset
 from ckeditor.fields import RichTextField
 
 JOB_TYPE = (
@@ -18,20 +19,21 @@ class Job(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     title = models.CharField(max_length=300)
     description = RichTextField()
+    job_image =models.FileField(upload_to='media/jobs/', null=True, blank=True)
     location = models.CharField(max_length=150)
     type = models.CharField(choices=JOB_TYPE, max_length=10)
     category = models.CharField(max_length=100)
     last_date = models.DateTimeField()
     company_name = models.CharField(max_length=100)
     company_description = models.CharField(max_length=300)
-    website = models.CharField(max_length=100, default="")
     created_at = models.DateTimeField(default=timezone.now)
     filled = models.BooleanField(default=False)
+    
     salary = models.IntegerField(default=0, blank=True)
-    tags = models.ManyToManyField(Tag)
+    tags = models.ManyToManyField(Tag,blank=True)
     skills = models.CharField(max_length=100,null=True,blank=True)
-    is_active = models.BooleanField(default=True)
-
+    skill = models.ManyToManyField(Skillset, blank=True)
+    is_active = models.BooleanField(default=False)
     objects = JobManager()
 
     class Meta:

@@ -126,7 +126,7 @@ class JobUpdateView(UpdateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["tags"] = Tag.objects.all()
+        context["skills"] = Skillset.objects.all()
         return context
 
     def form_valid(self, form):
