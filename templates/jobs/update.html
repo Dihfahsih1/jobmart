@@ -80,6 +80,8 @@
                                 <label for="salary">Salary(Leave empty if it's negotiable)</label>
                                 <input id="salary" name="salary" type="number" min="1000" class="form-control" value="{{ form.salary.value|default_if_none:"" }}">
                             </div>
+                            {% comment %}
+                              
                             <div class="col-lg-6 form-group">
                                 <label for="tags">Job Skills</label>
                                 <select class="js-select2 form-control" name="tags" style="border-radius: 0" multiple="multiple" data-placeholder="Select Tags">
@@ -89,6 +91,8 @@
                                     {% endfor %}
                                 </select>
                             </div>
+                            {% endcomment %}
+
                         </div>
                         <div class="row">
                             <div class="col-lg-6 form-group">
