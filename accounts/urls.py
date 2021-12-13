@@ -22,6 +22,7 @@ urlpatterns = [
         EditProfileView.as_view(),
         name="employee-profile-update",
     ),
+    path("welcome-register/", register, name="register-page"),
     path("logout/", LogoutView.as_view(), name="logout"),
     path("login/", LoginView.as_view(), name="login"),
     path('request-reset-email/', RequestResetEmail, name="request-reset-email"),

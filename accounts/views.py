@@ -206,3 +206,6 @@ def ResetPasswordView(request, uidb64, token):
         messages.error(request, "oops! something went wrong")
         return render(request, 'accounts/login.html', context)
     return render(request, 'accounts/reset_password.html', context)
+
+def register(request):
+    return render (request, 'accounts/welcome.html')
