@@ -157,10 +157,12 @@ class EmployerProfileUpdateForm(forms.ModelForm):
         super(EmployerProfileUpdateForm, self).__init__(*args, **kwargs)
         self.fields["reg_document"].label = "Registration Certificate"
         self.fields["avatar"].label = "Company Logo"
+        
+        self.fields["company_website_url"].label = "Company Website e.g https://your_company.com"
 
     class Meta:
         model = User #user model
-        fields = ["avatar","company_name","industry", "registration_no", "reg_document", "email","telephone","address"]
+        fields = ["avatar","company_name","industry", "registration_no", "reg_document", "email","telephone","address","profile_summary",'company_website_url']
 
 class EmployeeProfileUpdateForm(forms.ModelForm):
     class Meta:

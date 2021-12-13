@@ -22,6 +22,7 @@ class User(AbstractUser):
     role = models.CharField(max_length=12, error_messages={"required": "Role must be provided"}, null=True, blank=True)
     
     company_name = models.CharField(max_length=200, null=True, blank=True)
+    company_website_url=models.URLField(max_length = 200, blank=True, null=True)
     reg_document = models.FileField(upload_to='media/docs/', null=True, blank=True)
     registration_no = models.CharField(max_length=200, null=True, blank=True)
     industry = models.CharField(max_length=200, null=True, blank=True)

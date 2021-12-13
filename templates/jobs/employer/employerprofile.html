@@ -26,12 +26,16 @@
                 <img src="{{ profile.avatar.url }}" alt="Admin" class="rounded-circle" width="150">
                 <div class="mt-3">
                   <h4>{{profile.company_name}}</h4>
-                  <p class="text-secondary mb-1"></p>
-                  <p class="text-muted font-size-sm">{{profile}}</p>
+                  <h6><a href="{{profile.company_website_url}}" target="blank">Company Website</a></h6>
+                  <p class="text-secondary mb-1">{{profile.profile_summary}}</p>
+                  <p class="text-muted font-size-sm"><h6>
+                  {{profile}}</h6>
                 </div>
               </div>
             </div>
           </div>
+          <hr>
+          <a class="btn btn-info " href="{% url 'accounts:employer-profile-update'%}">Edit Company Profile</a>
           <br>
         </div>
         <div class="col-md-8">
@@ -102,11 +106,7 @@
             </div>
 
             <hr>
-              <div class="row">
-                <div class="col-sm-12">
-                  <a class="btn btn-info " href="{% url 'accounts:employer-profile-update'%}">Edit Company Profile</a>
-                </div>
-              </div>
+              
         </div>
       </div>
     </div>

@@ -76,7 +76,7 @@
                             </div>
                             <!-- section for skills -->
                             <div class="col-lg-6 form-group">
-                                <label for="tags">Skills</label>
+                                <label for="tags">Skills(Use Ctr and click for multiple skills selection)</label>
                                 <select id="tags" class="js-select2 form-control" name="tags" style="border-radius: 0" multiple="multiple" data-placeholder="Select Tags">
                                     {% for tag in tags %}
                                         {% tag_exists tag.id form.tags.value as tag_already_exists %}
@@ -114,41 +114,11 @@
                                 <input id="apply_url" type="url" class="form-control">
                             </div>
                             <div class="col-xl-6 form-group">
-                                <label for="validity">Validity of the post</label>
+                                <label for="validity">Application Deadeline</label>
                                 <input id="validity" name="last_date" type="date" class="form-control" value='{{ form.last_date.value|default_if_none:"" }}'>
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="col-lg-12">
-                                <hr class="margin-bottom--big">
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-lg-12">
-                                <h4>Company details</h4>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-lg-12 form-group">
-                                <label for="company_name">Company name</label>
-                                <input id="company_name" name="company_name" type="text" class="form-control" value='{{ form.company_name.value|default_if_none:"" }}'>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-lg-12 form-group">
-{#                                <p class="text-danger">{{ form.company_description.errors }}</p>#}
-                                <label for="company_description">Company Description</label>
-                                <textarea id="company_description" name="company_description" rows="3" class="form-control">{{ form.company_description.value|default_if_none:"" }}
-
-                                </textarea>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-lg-4 form-group">
-                                <label for="company_website">Website</label>
-                                <input id="company_website" name="website" type="url" class="form-control" value='{{ form.website.value|default_if_none:"" }}'>
-                            </div>
-                        </div>
+                    
                         <div class="row">
                             <div class="col-lg-12 text-center">
                                 <hr>
