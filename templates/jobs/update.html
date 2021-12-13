@@ -61,7 +61,7 @@
                                 <label for="text">Required Skills</label>
                                 <select 
                                 rows="15"
-                                class="js-select2 form-control" name="skill" style="border-radius: 0" multiple="multiple" data-placeholder="Select Tags">
+                                class="js-select2 form-control" name="skill" style="border-radius: 0" multiple="multiple" data-placeholder="Select Skills">
                                     {% for skill in skills %}
                                         {% skill_exists skill.id form.skill.value as skill_already_exists %}
                                         <option value="{{ skill.id }}" {% if skill in job.skill.all or skill_already_exists %} selected {% endif %}>{{ skill.skill }}</option>

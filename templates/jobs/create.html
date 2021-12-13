@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
-{% load tag_exists %}
+{% load tag_exists skill_exists %}
 {% block title %}
     {{ title }}
 {% endblock %}
@@ -70,11 +70,11 @@
                             </div>
                             <!-- section for skills -->
                             <div class="col-lg-6 form-group">
-                                <label for="tags">Skills</label>
-                                <select id="tags" class="js-select2 form-control" name="skills" style="border-radius: 0" multiple="multiple" data-placeholder="Select Tags">
-                                    {% for tag in tags %}
-                                        {% tag_exists tag.id form.tags.value as tag_already_exists %}
-                                        <option value="{{ tag.id }}" {% if tag_already_exists %} selected {% endif %}>{{ tag.skill }}</option>
+                                <label for="skills">Skills</label>
+                                <select id="skills" class="js-select2 form-control" name="skills" style="border-radius: 0" multiple="multiple" data-placeholder="Select Tags">
+                                    {% for skill in skills %}
+                                        {% skill_exists skill.id form.skills.value as skill_already_exists %}
+                                        <option value="{{ skill.id }}" {% if skill_already_exists %} selected {% endif %}>{{ skill.skill }}</option>
                                     {% endfor %}
                                 </select>
                             </div>

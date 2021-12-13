@@ -69,7 +69,7 @@ class JobCreateView(CreateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["tags"] = Skillset.objects.all()
+        context["skills"] = Skillset.objects.all()
         return context
 
     def form_valid(self, form):
@@ -97,13 +97,6 @@ class EmployerProfileDetailView(DetailView):
     
     def get_context_data(self, **kwargs):
         context = super(EmployerProfileDetailView, self).get_context_data(**kwargs)
-       
-        # if (
-        #     "status" in self.request.GET
-        #     and len(self.request.GET.get("status")) > 0
-        #     and int(self.request.GET.get("status")) > 0
-        # ):
-        #     self.queryset = self.queryset.filter(status=int(self.request.GET.get("status")))
         return context
     
     
