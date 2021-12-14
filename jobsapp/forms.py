@@ -9,7 +9,6 @@ from jobsapp.models import Job, Applicant
 class CreateJobForm(forms.ModelForm):
     class Meta:
         model = Job
-        fields = '__all__'
         exclude = (
             "user",
             "created_at",
