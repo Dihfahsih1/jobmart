@@ -57,16 +57,13 @@
                                 <a href="#">
                                     <div class="image">
                                         {% if job.job_image %}
-                                        Tryuhfam
-                                             <img src="{% static 'job.job_image.url' %}" alt="" class="img-fluid">
+                                        
+                                             <img src="{{ job.job_image.url }}" alt="" class="img-fluid">
                                         {% else %}
                                             <img src="{% static 'img/featured1.jpg' %}" alt="" class="img-fluid">
                                         {% endif %}
                                     </div>
-                                    <div class="bg"></div>
-                                    <div class="logo">
-                                        <img src="{% static 'img/company-1.png' %}" alt="" style="max-width: 80px;">
-                                    </div>
+                                    
                                 </a>
                             </div>
                             <div class="content">
@@ -85,7 +82,7 @@
                                     <span style="color: #ffffff;"
                                           class="badge featured-badge badge-secondary">{{ tag.name }}</span>
                                 {% endfor %}
-                                <p>{{ job.description }}</p>
+                                <p>{{ job.description|safe}}</p>
                             </div>
                         </div>
                     </div>

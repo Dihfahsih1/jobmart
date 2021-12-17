@@ -4,9 +4,12 @@ from django.urls import path, include
 from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
 from rest_framework import permissions
+from django.conf import settings
 from django.conf.urls.i18n import i18n_patterns
+from django.conf.urls.static import static
 from django.contrib.sitemaps.views import sitemap
 from django.contrib.flatpages import views as flatpages_views
+
 
 from jobs.sitemaps import StaticViewSitemap, Sitemaps
 
@@ -49,7 +52,11 @@ urlpatterns = lang_patterns + [
     ),
     path("social-auth/", include("social_django.urls", namespace="social")),
     # url(r"^(?P<url>.*/)$", flatpages_views.flatpage),
-    path("sitemap.xml/", sitemap, {"sitemaps": dict(Sitemaps())}, name="django.contrib.sitemaps.views.sitemap"),
-    
+    path("sitemap.xml/", sitemap, {"sitemaps": dict(Sitemaps())}, name="django.contrib.sitemaps.views.sitemap"), 
     path('ckeditor/', include('ckeditor_uploader.urls')),
 ]
+
+# This is only needed when using runserver.
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
