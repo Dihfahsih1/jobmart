@@ -7,7 +7,6 @@ from jobsapp.models import Job, Applicant
 
 from django.forms import ModelForm, models,  inlineformset_factory
 
-from accounts.models import User,Skillset
 from .models import JobSkillset
 
 
@@ -38,19 +37,8 @@ class CreateJobForm(forms.ModelForm):
             raise ValidationError("Last date can't be before from today")
         return date
 
-    def clean_skills(self):
-        skills = self.cleaned_data["skill"]
-        if len(skills) > 6:
-            raise forms.ValidationError("You can't add more than 6 skills")
-        return skills
+    
 
-    def save(self, commit=True):
-        job = super(CreateJobForm, self).save(commit=False)
-        if commit:
-            job.save()
-            for skill in self.cleaned_data["skill"]:
-                job.skill.add(skill)
-        return job
     
 class JobSkillsetForm(ModelForm):
     class Meta:

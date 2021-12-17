@@ -41,7 +41,7 @@
                             {% endfor %}
                         {% endfor %}
                     {% endif %}
-                    <form id="job-main-form" method="post" action="" class="job-add-form">
+                    <form method="post" action="" role="form" enctype="multipart/form-data">
                         {{ form.media }}
                         {% csrf_token %}
                         <div class="row">
@@ -52,9 +52,14 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-lg-12 form-group">
+                            <div class="col-lg-6 form-group">
+                                <input type="hidden" name="job_poster" value="{{request.user}}">
                                 <label for="title">Job Title</label>
                                 <input id="title" name="title" type="text" class="form-control" value="{{ form.title.value|default_if_none:"" }}">
+                            </div>
+                            <div class="col-lg-6 form-group">
+                                <label for="job_image">Image </label>
+                                <input id="job_image" name="job_image" type="file" class="form-control">
                             </div>
                         </div>
                         <div class="row">
@@ -68,10 +73,38 @@
                                 <label for="salary">Salary(Leave empty if it's negotiable)</label>
                                 <input id="salary" name="salary" type="number" min="1000" class="form-control" value='{{ form.salary.value|default_if_none:"" }}'>
                             </div>
-                            <!-- section for skills -->
-                            <div class="col-lg-6" form-group>
+                            
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-6 form-group">
+                                <label for="location">Location</label>
+                                <input id="location" name="location" type="text" placeholder="e.g. Kampala, Mukono"
+                                       class="form-control" value='{{ form.location.value|default_if_none:"" }}'>
+                            </div>
+                            <div class="col-lg-6 form-group">
+                                <label for="type">Type</label>
+                                <select id="type" name="type" placeholder="Choose job type"
+                                        class="form-control select2">
+                                    <option value="1" {% if form.type.value == "1" %} selected {% endif %}>Full time</option>
+                                    <option value="2" {% if form.type.value == "2" %} selected {% endif %}>Part time</option>
+                                    <option value="3" {% if form.type.value == "3" %} selected {% endif %}>Internship</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-4 form-group">
+                                <label for="category">Job Category</label>
+                                <input type="text" name="category" class="form-control">
+                            </div>
+                        </div>
+                        <div class="col-xl-6 form-group">
+                            <label for="validity">Validity of the post</label>
+                            <input id="validity" name="last_date" type="date" class="form-control" value='{{ form.last_date.value|default_if_none:"" }}'>
+                        </div>
+                        <div class="row">
+                            <div class="col-xl-6 form-group">
                                 <h4>Job Skills Required</h4>
-                                <table class="table">
+                                <table class="table" style="border:2px solid">
                                     {{ addskills.management_form }}
                                     {% for form in addskills.forms %}
                                         {% if forloop.first %}
@@ -100,72 +133,14 @@
                                     {% endfor %}
                                 </table>
                             </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-lg-6 form-group">
-                                <label for="location">Location</label>
-                                <input id="location" name="location" type="text" placeholder="e.g. Kampala, Mukono"
-                                       class="form-control" value='{{ form.location.value|default_if_none:"" }}'>
-                            </div>
-                            <div class="col-lg-6 form-group">
-                                <label for="type">Type</label>
-                                <select id="type" name="type" placeholder="Choose job type"
-                                        class="form-control select2">
-                                    <option value="1" {% if form.type.value == "1" %} selected {% endif %}>Full time</option>
-                                    <option value="2" {% if form.type.value == "2" %} selected {% endif %}>Part time</option>
-                                    <option value="3" {% if form.type.value == "3" %} selected {% endif %}>Internship</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-lg-4 form-group">
-                                <label for="category">Job Category</label>
-                                <input type="text" name="category" class="form-control">
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-xl-6 form-group">
-                                <label for="apply_url">Apply URL <span
-                                        class="note">(users will apply on your website)</span></label>
-                                <input id="apply_url" type="url" class="form-control">
-                            </div>
-                            <div class="col-xl-6 form-group">
-                                <label for="validity">Validity of the post</label>
-                                <input id="validity" name="last_date" type="date" class="form-control" value='{{ form.last_date.value|default_if_none:"" }}'>
-                            </div>
+                            
                         </div>
                         <div class="row">
                             <div class="col-lg-12">
                                 <hr class="margin-bottom--big">
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="col-lg-12">
-                                <h4>Company details</h4>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-lg-12 form-group">
-                                <label for="company_name">Company name</label>
-                                <input id="company_name" name="company_name" type="text" class="form-control" value='{{ form.company_name.value|default_if_none:"" }}'>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-lg-12 form-group">
-                            
-                                <label for="company_description">Company Description</label>
-                                <textarea id="company_description" name="company_description" rows="3" class="form-control">{{ form.company_description.value|default_if_none:"" }}
-
-                                </textarea>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-lg-4 form-group">
-                                <label for="company_website">Website</label>
-                                <input id="company_website" name="website" type="url" class="form-control" value='{{ form.website.value|default_if_none:"" }}'
-                                placeholder="{{request.user.company_website_url}}">
-                            </div>
-                        </div>
+                      
                         <div class="row">
                             <div class="col-lg-12 text-center">
                                 <hr>
@@ -192,13 +167,14 @@
         });
     </script>
 
-
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
     <script src="{% static 'formset/jquery.formset.js' %}"></script>
     <script type="text/javascript">
         $('.formset_row').formset({
             addText: 'Add More Skills',
             deleteText: 'Remove',
-            prefix: 'skillset_set'
+            // JobSkillset model
+            prefix: 'jobskillset_set'
         });
     </script>
 

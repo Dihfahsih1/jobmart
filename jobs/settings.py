@@ -90,7 +90,7 @@ DATABASES = {
         
         'ENGINE': 'django.db.backends.sqlite3',
         'HOST': 'localhost',
-        'NAME': 'rcsdb',
+        'NAME': 'jobmart.db',
         #'ENGINE': 'django.db.backends.postgresql_psycopg2',
         # 'NAME': 'jobmart',
         # 'USER': 'martadmin',

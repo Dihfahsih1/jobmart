@@ -56,7 +56,12 @@
                             <div class="top">
                                 <a href="#">
                                     <div class="image">
-                                        <img src="{% static 'img/featured1.jpg' %}" alt="" class="img-fluid">
+                                        {% if job.job_image %}
+                                        Tryuhfam
+                                             <img src="{% static 'job.job_image.url' %}" alt="" class="img-fluid">
+                                        {% else %}
+                                            <img src="{% static 'img/featured1.jpg' %}" alt="" class="img-fluid">
+                                        {% endif %}
                                     </div>
                                     <div class="bg"></div>
                                     <div class="logo">

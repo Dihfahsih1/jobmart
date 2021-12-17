@@ -24,6 +24,7 @@ class RegisterJobSeeker(CreateView):
     success_url = reverse_lazy('accounts:login')
     template_name = "accounts/employee/register.html"
     form_class=EmployeeRegistrationForm
+    
     def get_context_data(self, **kwargs):
         data = super(RegisterJobSeeker, self).get_context_data(**kwargs)
         if self.request.POST:
@@ -31,11 +32,13 @@ class RegisterJobSeeker(CreateView):
         else:
             data['addskills'] = JobseekskilsFormset()
         return data
+    
+    
 
     def form_valid(self, form):
         context = self.get_context_data()
         addskills = context['addskills']
-        
+
         with transaction.atomic():
             user = form.save(commit=False)
             password = form.cleaned_data.get("password1")

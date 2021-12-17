@@ -24,14 +24,14 @@ class Job(models.Model):
     type = models.CharField(choices=JOB_TYPE, max_length=10)
     category = models.CharField(max_length=100)
     last_date = models.DateTimeField()
-    company_name = models.CharField(max_length=100)
-    company_description = models.CharField(max_length=300)
+    
     created_at = models.DateTimeField(default=timezone.now)
     filled = models.BooleanField(default=False)
     
     salary = models.IntegerField(default=0, blank=True)
     tags = models.ManyToManyField(Tag,blank=True)
-    skills = models.CharField(max_length=100,null=True,blank=True)
+    skill = models.CharField(max_length=100,null=True,blank=True)
+    job_poster = models.CharField(max_length=100,null=True,blank=True)
     #skill = models.ManyToManyField(Skillset, blank=True)
     is_active = models.BooleanField(default=False)
     objects = JobManager()

@@ -14,8 +14,6 @@ class JobAdmin(admin.ModelAdmin):
         "location",
         "type",
         "category",
-        "skills",
-        "company_name",
         "last_date",
         "created_at",
         "filled",

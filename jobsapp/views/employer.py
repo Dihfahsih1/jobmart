@@ -1,20 +1,21 @@
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from django.db import IntegrityError
+from django.db import IntegrityError, transaction
 from django.http import HttpResponseRedirect, Http404
 from django.urls import reverse_lazy
 from django.utils.decorators import method_decorator
 from django.views.generic import CreateView, ListView, UpdateView, DetailView
 
 from jobsapp.decorators import user_is_employer
-from jobsapp.forms import CreateJobForm
-from jobsapp.models import Job, Applicant
+from jobsapp.forms import CreateJobForm,JobskilsFormset
+from jobsapp.models import Job, Applicant,JobSkillset
 from tags.models import Tag
 from accounts.models import Skillset, User
 from jobsapp.decorators import user_is_employer
 from django.shortcuts import get_object_or_404
 from django.contrib.messages.views import SuccessMessageMixin
 from accounts.forms import EmployerProfileUpdateForm
+ 
 
 
 
@@ -55,18 +56,22 @@ class ApplicantPerJobView(ListView):
 
 
 class JobCreateView(CreateView):
+    model = Job
     template_name = "jobs/create.html"
     form_class = CreateJobForm
+    success_message = 'Ne Job post created sucessfully!'
     extra_context = {"title": "Post New Job"}
     success_url = reverse_lazy("jobs:employer-dashboard")
+    
     def get_context_data(self, **kwargs):
-        data = super(CreateJobForm, self).get_context_data(**kwargs)
+        data = super(JobCreateView, self).get_context_data(**kwargs)
         if self.request.POST:
             data['addskills'] = JobskilsFormset(self.request.POST)
         else:
             data['addskills'] = JobskilsFormset()
         return data
 
+    
     @method_decorator(login_required(login_url=reverse_lazy("accounts:login")))
     def dispatch(self, request, *args, **kwargs):
         if not self.request.user.is_authenticated:
@@ -74,14 +79,15 @@ class JobCreateView(CreateView):
         if self.request.user.is_authenticated and self.request.user.role != "employer":
             return reverse_lazy("accounts:login")
         return super().dispatch(self.request, *args, **kwargs)
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context["skills"] = Skillset.objects.all()
-        return context
-
+  
     def form_valid(self, form):
         form.instance.user = self.request.user
+        context = self.get_context_data()
+        addskills = context['addskills']
+        with transaction.atomic():
+            if addskills.is_valid():
+                addskills.instance = self.object
+                addskills.save()
         return super(JobCreateView, self).form_valid(form)
 
     def post(self, request, *args, **kwargs):
