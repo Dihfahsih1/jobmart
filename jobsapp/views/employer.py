@@ -18,6 +18,7 @@ from accounts.forms import EmployerProfileUpdateForm
 
 
 
+
 class DashboardView(ListView):
     model = Job
     template_name = "jobs/employer/dashboard.html"
@@ -58,6 +59,13 @@ class JobCreateView(CreateView):
     form_class = CreateJobForm
     extra_context = {"title": "Post New Job"}
     success_url = reverse_lazy("jobs:employer-dashboard")
+    def get_context_data(self, **kwargs):
+        data = super(CreateJobForm, self).get_context_data(**kwargs)
+        if self.request.POST:
+            data['addskills'] = JobskilsFormset(self.request.POST)
+        else:
+            data['addskills'] = JobskilsFormset()
+        return data
 
     @method_decorator(login_required(login_url=reverse_lazy("accounts:login")))
     def dispatch(self, request, *args, **kwargs):

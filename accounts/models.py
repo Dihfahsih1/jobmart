@@ -4,6 +4,7 @@ from django.db import models
 from accounts.managers import UserManager
 from django.utils.timezone import now
 
+
 GENDER_CHOICES = (("male", "Male"), ("female", "Female"))
 EXPERIENCE_LEVEL = (('1','Executive Level'),
                 ('2',"Manager Level"),
@@ -45,7 +46,7 @@ class User(AbstractUser):
     current_salary = models.FloatField(default=0, null=True, blank=True)
     expected_salary = models.FloatField(default=0, null=True, blank=True)
     
-    is_active = models.BooleanField(default=False, blank=False, null=True)
+    is_active = models.BooleanField(default=True)
     email = models.EmailField(unique=True,blank=False,error_messages={
             "unique": "A user with that email already exists.",
         },
@@ -62,10 +63,11 @@ class User(AbstractUser):
     
      
     
-#skills model    
+#job seeker skills model    
 class Skillset(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True)
     skill = models.CharField(max_length=200, null=True, blank=True)
 
     def __str__(self):
-        return str(self.user)
+        return str(self.user +  "- " + self.skill + '_' + self.id)
+    

@@ -5,6 +5,11 @@ from django.core.exceptions import ValidationError
 
 from jobsapp.models import Job, Applicant
 
+from django.forms import ModelForm, models,  inlineformset_factory
+
+from accounts.models import User,Skillset
+from .models import JobSkillset
+
 
 class CreateJobForm(forms.ModelForm):
     class Meta:
@@ -46,7 +51,13 @@ class CreateJobForm(forms.ModelForm):
             for skill in self.cleaned_data["skill"]:
                 job.skill.add(skill)
         return job
-
+    
+class JobSkillsetForm(ModelForm):
+    class Meta:
+        model = JobSkillset
+        fields = ['user','skill']
+        exclude = ()
+JobskilsFormset = inlineformset_factory(Job, JobSkillset, form=JobSkillsetForm, extra=2)
 
 class ApplyJobForm(forms.ModelForm):
     class Meta:

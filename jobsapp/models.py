@@ -32,7 +32,7 @@ class Job(models.Model):
     salary = models.IntegerField(default=0, blank=True)
     tags = models.ManyToManyField(Tag,blank=True)
     skills = models.CharField(max_length=100,null=True,blank=True)
-    skill = models.ManyToManyField(Skillset, blank=True)
+    #skill = models.ManyToManyField(Skillset, blank=True)
     is_active = models.BooleanField(default=False)
     objects = JobManager()
 
@@ -79,4 +79,11 @@ class Favorite(models.Model):
     soft_deleted = models.BooleanField(default=False)
 
     def __str__(self):
-        return self.job.title
+        return self.job.title()
+     
+class JobSkillset(models.Model):
+    user = models.ForeignKey(Job, on_delete=models.CASCADE, blank=True, null=True)
+    skill = models.CharField(max_length=200, null=True, blank=True)
+
+    def __str__(self):
+        return str(self.user +  "- " + self.skill + '_' + self.id)

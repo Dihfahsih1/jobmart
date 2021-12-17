@@ -69,14 +69,36 @@
                                 <input id="salary" name="salary" type="number" min="1000" class="form-control" value='{{ form.salary.value|default_if_none:"" }}'>
                             </div>
                             <!-- section for skills -->
-                            <div class="col-lg-6 form-group">
-                                <label for="skills">Skills</label>
-                                <select id="skills" class="js-select2 form-control" name="skills" style="border-radius: 0" multiple="multiple" data-placeholder="Select Tags">
-                                    {% for skill in skills %}
-                                        {% skill_exists skill.id form.skills.value as skill_already_exists %}
-                                        <option value="{{ skill.id }}" {% if skill_already_exists %} selected {% endif %}>{{ skill.skill }}</option>
+                            <div class="col-lg-6" form-group>
+                                <h4>Job Skills Required</h4>
+                                <table class="table">
+                                    {{ addskills.management_form }}
+                                    {% for form in addskills.forms %}
+                                        {% if forloop.first %}
+                                            <thead>
+                                            <tr>
+                                                {% for field in form.visible_fields %}
+                                                    <th>{{ field.label|capfirst }}</th>
+                                                {% endfor %}
+                                            </tr>
+                                            </thead>
+                                        {% endif %}
+                                        <tr class="{% cycle row1 row2 %} formset_row">
+                                            {% for field in form.visible_fields %}
+                                                <td>
+                                                    {# Include the hidden fields in the form #}
+                                                    {% if forloop.first %}
+                                                        {% for hidden in form.hidden_fields %}
+                                                            {{ hidden }}
+                                                        {% endfor %}
+                                                    {% endif %}
+                                                    {{ field.errors.as_ul }}
+                                                    {{ field }}
+                                                </td>
+                                            {% endfor %}
+                                        </tr>
                                     {% endfor %}
-                                </select>
+                                </table>
                             </div>
                         </div>
                         <div class="row">
@@ -167,6 +189,16 @@
     <script>
         $(document).ready(function () {
             $('.js-select2').select2();
+        });
+    </script>
+
+
+    <script src="{% static 'formset/jquery.formset.js' %}"></script>
+    <script type="text/javascript">
+        $('.formset_row').formset({
+            addText: 'Add More Skills',
+            deleteText: 'Remove',
+            prefix: 'skillset_set'
         });
     </script>
 
