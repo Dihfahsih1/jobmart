@@ -33,35 +33,35 @@
                 <div class="col-lg-6 col-sm-3 col-md-3">
                     {% csrf_token %}
                     <h4>Add Your Skills</h4>
-                        <table class="table">
-                            {{ addskills.management_form }}
-                
-                            {% for form in addskills.forms %}
-                                {% if forloop.first %}
-                                    <thead>
-                                    <tr>
-                                        {% for field in form.visible_fields %}
-                                            <th>{{ field.label|capfirst }}</th>
-                                        {% endfor %}
-                                    </tr>
-                                    </thead>
-                                {% endif %}
-                                <tr class="{% cycle row1 row2 %} formset_row">
+                    <table class="table">
+                        {{ addskills.management_form }}
+            
+                        {% for form in addskills.forms %}
+                            {% if forloop.first %}
+                                <thead>
+                                <tr>
                                     {% for field in form.visible_fields %}
-                                        <td>
-                                            {# Include the hidden fields in the form #}
-                                            {% if forloop.first %}
-                                                {% for hidden in form.hidden_fields %}
-                                                    {{ hidden }}
-                                                {% endfor %}
-                                            {% endif %}
-                                            {{ field.errors.as_ul }}
-                                            {{ field }}
-                                        </td>
+                                        <th>{{ field.label|capfirst }}</th>
                                     {% endfor %}
                                 </tr>
-                            {% endfor %}
-                        </table>
+                                </thead>
+                            {% endif %}
+                            <tr class="{% cycle row1 row2 %} formset_row">
+                                {% for field in form.visible_fields %}
+                                    <td>
+                                        {# Include the hidden fields in the form #}
+                                        {% if forloop.first %}
+                                            {% for hidden in form.hidden_fields %}
+                                                {{ hidden }}
+                                            {% endfor %}
+                                        {% endif %}
+                                        {{ field.errors.as_ul }}
+                                        {{ field }}
+                                    </td>
+                                {% endfor %}
+                            </tr>
+                        {% endfor %}
+                    </table>
                 </div>
             </div>
              

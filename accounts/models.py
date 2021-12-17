@@ -45,7 +45,7 @@ class User(AbstractUser):
     current_salary = models.FloatField(default=0, null=True, blank=True)
     expected_salary = models.FloatField(default=0, null=True, blank=True)
     
-    is_active = models.BooleanField(default=False)
+    is_active = models.BooleanField(default=False, blank=False, null=True)
     email = models.EmailField(unique=True,blank=False,error_messages={
             "unique": "A user with that email already exists.",
         },

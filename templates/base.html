@@ -77,10 +77,10 @@
                      
                 {% if request.user.is_authenticated %}
                     <li class="nav-item">
-                        <a href="{% if request.user.role == 'employer' %}{% url 'jobs:employer-dashboard' %} {% elif request.user.role == 'employee' %} {% url 'employee-my-applications' %} {% endif %}" class="dropdown-item">Dashboard</a>
+                        <a href="{% if request.user.role == 'employer' %}{% url 'jobs:employer-dashboard' %} {% elif request.user.role == 'employee' %} {% url 'jobs:employee-my-applications' %} {% endif %}" class="dropdown-item">Dashboard</a>
                     </li>
                     <li class="nav-item">
-                        <a href="{% if request.user.role == 'employer' %}{% url 'jobs:about-recruiter' %} {% elif request.user.role == 'employee' %} {% url 'profile-detail' %} {% endif %}" class="dropdown-item">Profile
+                        <a href="{% if request.user.role == 'employer' %}{% url 'jobs:about-recruiter' %} {% elif request.user.role == 'employee' %} {% url 'jobs:profile-detail' %} {% endif %}" class="dropdown-item">Profile
                             <!-- <br>
                                 <img src="{{request.user.avatar.url }}"
                                     alt="company image"
