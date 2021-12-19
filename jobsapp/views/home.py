@@ -25,7 +25,7 @@ class HomeView(ListView):
         context["trendings"] = self.model.objects.unfilled(created_at__month=timezone.now().month)[:3]
         return context
 
-
+# searching through all the views.
 class SearchView(ListView):
     model = Job
     template_name = "jobs/search.html"

@@ -33,7 +33,6 @@ class DashboardView(ListView):
     def get_queryset(self):
         return self.model.objects.filter(user_id=self.request.user.id)
 
-
 class ApplicantPerJobView(ListView):
     model = Applicant
     template_name = "jobs/employer/applicants.html"
