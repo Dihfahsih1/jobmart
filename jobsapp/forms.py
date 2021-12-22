@@ -2,22 +2,22 @@ from datetime import datetime
 
 from django import forms
 from django.core.exceptions import ValidationError
+from django.db.models import fields
 
 from jobsapp.models import Job, Applicant
 
 from django.forms import ModelForm, models,  inlineformset_factory
 
-from .models import JobSkillset
+from .models import JobSkillset, Resume
 
 from multiupload.fields import MultiFileField, MultiMediaField, MultiImageField
 
-class MultipleCvUploadForm(forms.Form):
+class MultipleCvUploadForm(forms.ModelForm):
     cv_files = MultiFileField(min_num=1, max_num=3000, max_file_size=1024*1024*5)
     class Meta:
-        db_table = ''
-        managed = True
-        verbose_name = 'ModelName'
-        verbose_name_plural = 'ModelNames'
+        model = Resume
+        fields = ['category']
+        
     
 class CreateJobForm(forms.ModelForm):
     class Meta:

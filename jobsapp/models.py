@@ -8,6 +8,7 @@ from .manager import JobManager
 from accounts.models import Skillset
 from ckeditor.fields import RichTextField
 
+
 JOB_TYPE = (
     ("1", "Full time"),
     ("2", "Part time"),
@@ -52,10 +53,10 @@ class JobCategory(models.Model):
     
 
 class Resume(models.Model):
-    #category = models.ForeignKey(JobCategory,on_delete=models.CASCADE, blank=True,null=True)
+    category = models.ForeignKey(JobCategory,on_delete=models.CASCADE, blank=True,null=True)
     file = models.FileField(upload_to="resumes/%Y/%m/%d/", blank=True,null=True)
     def __str__(self):
-        return "Cv-batch: "+ str(self.id) 
+        return "cv Number: "+ str(self.id)
     
 class Applicant(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)

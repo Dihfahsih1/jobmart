@@ -9,16 +9,21 @@
 {% block content %}
 
 <div class="container" style="background:white; max-width: 900px;">
-  <h2> <small>Upload  </small>Job Seeker Resumes </h2>
+  <h1> <small>Upload  </small>Job Seeker Resumes </h1>
   <form action="" method="post" enctype="multipart/form-data" role="form">
     {% csrf_token %}
     <div class="row">
       <div class="col-lg-4 col-sm-6 col-md-6">
-          <div class="form-group">
-              {{form.cv_files|as_crispy_field}}
-          </div>
+        <div class="form-group">
+          {{form.category|as_crispy_field}}
+        </div>
+        <div class="form-group">
+            {{form.cv_files|as_crispy_field}}
+        </div>
       </div>
       <hr>
+    </div>
+    <div class="row">
       <button class="btn btn-dark" type="submit">Upload 
       </button>
     </div>
