@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load tag_exists skill_exists %}
+{% block title %}
+    Multiple Cv Uploader
+{% endblock %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+<div class="container" style="background:white; max-width: 900px;">
+  <h2> <small>Upload  </small>Job Seeker Resumes </h2>
+  <form action="" method="post" enctype="multipart/form-data" role="form">
+    {% csrf_token %}
+    <div class="row">
+      <div class="col-lg-4 col-sm-6 col-md-6">
+          <div class="form-group">
+              {{form.cv_files|as_crispy_field}}
+          </div>
+      </div>
+      <hr>
+      <button class="btn btn-dark" type="submit">Upload 
+      </button>
+    </div>
+  </form>
+
+</div>
+{% endblock %}

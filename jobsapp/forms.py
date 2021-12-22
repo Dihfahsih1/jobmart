@@ -9,7 +9,16 @@ from django.forms import ModelForm, models,  inlineformset_factory
 
 from .models import JobSkillset
 
+from multiupload.fields import MultiFileField, MultiMediaField, MultiImageField
 
+class MultipleCvUploadForm(forms.Form):
+    cv_files = MultiFileField(min_num=1, max_num=3000, max_file_size=1024*1024*5)
+    class Meta:
+        db_table = ''
+        managed = True
+        verbose_name = 'ModelName'
+        verbose_name_plural = 'ModelNames'
+    
 class CreateJobForm(forms.ModelForm):
     class Meta:
         model = Job

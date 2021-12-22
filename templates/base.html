@@ -77,6 +77,9 @@
                      
                 {% if request.user.is_authenticated %}
                     <li class="nav-item">
+                        <a href="{% url 'jobs:multiple-cv-upload' %}" class="dropdown-item">Upload Multiple Cvs </a>
+                    </li>
+                    <li class="nav-item">
                         <a href="{% if request.user.role == 'employer' %}{% url 'jobs:employer-dashboard' %} {% elif request.user.role == 'employee' %} {% url 'jobs:employee-my-applications' %} {% endif %}" class="dropdown-item">Dashboard</a>
                     </li>
                     <li class="nav-item">

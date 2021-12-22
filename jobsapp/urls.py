@@ -55,4 +55,12 @@ urlpatterns = [
     path("apply-job/<int:job_id>/", ApplyJobView.as_view(), name="apply-job"),
     path("jobs/", JobListView.as_view(), name="jobs"),
     path("jobs/<int:id>/", JobDetailsView.as_view(), name="jobs-detail"),
+    
+    path("resume/", 
+        include(
+                [
+                 path("multiple-upload", MultipleCvUploadView.as_view(), name="multiple-cv-upload"),
+                ]
+                ),
+        ),
 ]

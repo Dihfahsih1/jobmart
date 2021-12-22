@@ -44,9 +44,19 @@ class Job(models.Model):
 
     def __str__(self):
         return self.title
+    
+class JobCategory(models.Model):
+    name = models.CharField(max_length=100, blank=True,null=True)
+    def __str__(self):
+        return self.name
+    
 
 class Resume(models.Model):
-    pass
+    #category = models.ForeignKey(JobCategory,on_delete=models.CASCADE, blank=True,null=True)
+    file = models.FileField(upload_to="resumes/%Y/%m/%d/", blank=True,null=True)
+    def __str__(self):
+        return "Cv-batch: "+ str(self.id) 
+    
 class Applicant(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     upload_resume = models.FileField(upload_to='documents')
