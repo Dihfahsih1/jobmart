@@ -1,27 +1,22 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block title %}
-    All jobs
+    All Resumes 
 {% endblock %}
 
 {% block content %}
 
     <section class="job-form-section job-form-section--compressed">
         <div class="container">
-            <h4 class="heading">Find a <span class="accent">job </span> you will <span class="accent">love</span></h4>
+            <h4 class="heading">Find a  matching your Job Category</h4>
             <form id="job-main-form" method="get" action="#" class="job-main-form">
                 <div class="controls">
                     <div class="row align-items-end">
                         <div class="col-sm-1 col-lg-2"></div>
                         <div class="col-sm-5 col-lg-4 form-group">
-                            <label for="profession">Position</label>
-                            <input type="text" id="position" name="position"
-                                   placeholder="Position you are looking for" class="form-control">
-                        </div>
-                        <div class="col-sm-5 col-lg-4 form-group">
-                            <label for="location">Location</label>
-                            <input type="text" id="location" name="location" placeholder="Any particular location?"
-                                   value="" class="form-control">
+                            <label for="profession">Job Category</label>
+                            <input type="text" id="category" name="q"
+                                   placeholder="Job category for resumes you are looking for" class="form-control">
                         </div>
                         <div class="col-sm-1 col-lg-2 form-group">
                             <button type="submit" name="name"
@@ -36,8 +31,8 @@
     </section>
     <section>
         <div class="container">
-            <h3 class="heading">We have found <span class="accent">{{ jobs.count }}</span> jobs</h3>
-            {% for job in jobs %}
+            <h3 class="heading">We have found <span class="accent">{{ nobjects }}</span> CVs</h3>
+            {% for cv in resumes %}
                 <div class="job-listing  ">
                     <div class="row">
                         <div class="col-md-12 col-lg-6">
@@ -48,21 +43,18 @@
                                 </div>
                                 <div class="col-10">
                                     <h4 class="job__title"><a
-                                            href="{% url 'jobs:jobs-detail' job.id %}">{{ job.title }}</a></h4>
-                                    <p class="job__company">
-                                        {{ job.company_name }}
-                                    </p>
+                                            href="{% url 'jobs:resume-detail' cv.id %}">Candidate {{ cv.id }}  </a></h4>
+                                    <!-- <p class="job__company">
+                                        
+                                    </p> -->
                                 </div>
                             </div>
                         </div>
-                        <div class="col-10 col-md-3 col-lg-2 ml-auto"><i class="fa fa-map-marker job__location"></i>
-                            {{ job.location }}
-                        </div>
-                        <div class="col-10 col-md-3 col-lg-3 ml-auto">
-                            <p>Posted {{ job.created_at|timesince }}</p>
-                        </div>
                     </div>
                 </div>
+                {% empty %}
+                <h4 style="text-align:center">No cv found for <b style="color:red">{{ category }}</b> category </h4>
+                <p style="text-align:center">Please try using another category</p>
             {% endfor %}
             {% if is_paginated %}
                 <div class="row">
@@ -71,7 +63,7 @@
                             <ul class="pagination">
                                 {% if page_obj.has_previous %}
                                     <li class="page-item">
-                                        <a href="?page={{ page_obj.previous_page_number }}"
+                                        <a href="?page={{ page_obj.previous_page_number }}&q={{ query }}"
                                            class="page-link">&laquo;</a>
                                     </li>
                                 {% else %}
@@ -86,13 +78,13 @@
                                         </li>
                                     {% else %}
                                         <li class="page-item">
-                                            <a href="?page={{ i }}" class="page-link">{{ i }}</a>
+                                            <a href="?page={{ i }}&q={{ query }}" class="page-link">{{ i }}</a>
                                         </li>
                                     {% endif %}
                                 {% endfor %}
                                 {% if page_obj.has_next %}
                                     <li class="page-item">
-                                        <a href="?page={{ page_obj.next_page_number }}" class="page-link">&raquo;</a>
+                                        <a href="?page={{ page_obj.next_page_number }}&q={{ query }}" class="page-link">&raquo;</a>
                                     </li>
                                 {% else %}
                                     <li class="page-item disabled">

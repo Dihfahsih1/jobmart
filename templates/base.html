@@ -77,6 +77,9 @@
                      
                 {% if request.user.is_authenticated %}
                     <li class="nav-item">
+                        <a href="{% url 'jobs:resumes' %}" class="dropdown-item">Search For Cvs </a>
+                    </li>
+                    <li class="nav-item">
                         <a href="{% url 'jobs:multiple-cv-upload' %}" class="dropdown-item">Upload Multiple Cvs </a>
                     </li>
                     <li class="nav-item">
