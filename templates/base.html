@@ -54,8 +54,8 @@
             </button>
             <div id="navbarSupportedContent" class="collapse navbar-collapse" style="text-align:center">
                 <ul class="navbar-nav ml-auto" style="text-align:center">
-                    <li class="nav-item active">
-                        <a href="{% url 'jobs:home' %}" class="dropdown-item">Home <span class="sr-only">(current)</span></a>
+                    <li class="nav-item">
+                        <a href="{% url 'jobs:home' %}" class="dropdown-item">Home</a>
                     </li>
 
                     {% if request.user.role != 'employer' %}
