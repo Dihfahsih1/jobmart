@@ -60,6 +60,8 @@ urlpatterns = [
         include(
                 [
                  path("multiple-upload", MultipleCvUploadView.as_view(), name="multiple-cv-upload"),
+                 path("resumes/", ResumeListView.as_view(), name="resumes"),
+                 path("search-resume/", ResumeSearchView.as_view(), name="resume-search"),
                 ]
                 ),
         ),

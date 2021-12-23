@@ -8,7 +8,7 @@ from django.views.generic import CreateView, ListView, UpdateView, DetailView
 
 from jobsapp.decorators import user_is_employer
 from jobsapp.forms import CreateJobForm,JobskilsFormset
-from jobsapp.models import Job, Applicant,JobSkillset
+from jobsapp.models import Job, Applicant,JobSkillset,Resume
 from tags.models import Tag
 from accounts.models import Skillset, User
 from jobsapp.decorators import user_is_employer
@@ -269,3 +269,4 @@ class EditEmployerProfileView(SuccessMessageMixin,UpdateView):
         if obj is None:
             raise Http404("Job doesn't exists")
         return obj
+    

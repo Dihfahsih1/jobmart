@@ -137,3 +137,4 @@ def favorite(request):
                 "message": "Job added to your favorite list",
             }
         )
+        
