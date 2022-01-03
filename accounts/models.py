@@ -32,7 +32,7 @@ class User(AbstractUser):
     avatar = models.FileField(upload_to='media/avatars/', null=True, blank=True, default="media/default/avatar.png")
     gender = models.CharField(max_length=8,choices=GENDER_CHOICES, default='male',null=True, blank=True)
     resume = models.FileField(upload_to='media/resume/', null=True, blank=True)
-    terms_and_conditions = models.BooleanField(default=False,null=True, blank=True)
+    terms_and_conditions = models.BooleanField(default=False)
     
     telephone = models.CharField(max_length=200, null=True, blank=True)
     address = models.CharField(max_length=200, null=True, blank=True)
